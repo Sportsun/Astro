@@ -1,0 +1,4442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SoulCompass Tarot - Professional, ethical, and intuitive tarot and oracle readings. Explore the cosmic path of clarity.">
+    <title>SoulCompass Tarot | Cosmic & Astrological Readings</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS Variables & Theme Setup */
+        :root {
+            --space-bg: #06020f;
+            --space-card: #120a2e;
+            --space-card-glowing: rgba(139, 92, 246, 0.12);
+            --neon-purple: #8b5cf6;
+            --neon-violet: #a78bfa;
+            --neon-teal: #06b6d4;
+            --neon-gold: #fbbf24;
+            --neon-gold-glow: rgba(251, 191, 36, 0.4);
+            --gold-gradient: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            --purple-gradient: linear-gradient(135deg, #8b5cf6 0%, #4c1d95 100%);
+            --cosmic-gradient: linear-gradient(135deg, #1e1b4b 0%, #06020f 50%, #120a2e 100%);
+            --text-light: #f3f4f6;
+            --text-dim: #9ca3af;
+            --text-purple: #c084fc;
+            --glass-card: rgba(18, 10, 46, 0.6);
+            --glass-border: rgba(139, 92, 246, 0.25);
+            --glass-border-gold: rgba(251, 191, 36, 0.3);
+            --font-display: 'Cinzel', serif;
+            --font-sans: 'Outfit', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Base Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--space-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--space-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-purple);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-violet);
+        }
+
+        /* Astro Constellation Background Canvas */
+        #constellation-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Cosmic Orbs background */
+        .cosmic-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.55;
+            animation: pulse 15s infinite alternate ease-in-out;
+        }
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 80%);
+            top: -100px;
+            right: -100px;
+        }
+        .orb-2 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 80%);
+            bottom: 15%;
+            left: -150px;
+            animation-delay: -5s;
+        }
+        .orb-3 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, transparent 80%);
+            top: 40%;
+            right: 5%;
+            animation-delay: -10s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.15) translate(30px, 20px); }
+        }
+
+        /* Typography Utilities */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+        }
+
+        h1 { font-size: clamp(2.4rem, 5vw, 4rem); }
+        h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
+        h3 { font-size: clamp(1.4rem, 3vw, 2rem); }
+        h4 { font-size: 1.25rem; }
+
+        p {
+            color: var(--text-dim);
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        /* Section styles */
+        .section-padding {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .section-tag {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            color: var(--neon-gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        .section-tag::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background-color: var(--neon-gold);
+            margin: 8px auto 0;
+        }
+
+        .section-title {
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #ffffff, #e9d5ff, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-desc {
+            max-width: 700px;
+            margin: 0 auto 60px;
+            font-size: 1.1rem;
+        }
+
+        /* Grid Utilities */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Button Component */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            transform: translateX(0);
+        }
+
+        .btn-gold {
+            background: var(--gold-gradient);
+            color: #06020f;
+            box-shadow: 0 0 20px var(--neon-gold-glow);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px var(--neon-gold-glow);
+        }
+
+        .btn-purple {
+            background: var(--purple-gradient);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-purple:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border-color: var(--neon-purple);
+            color: var(--neon-violet);
+        }
+
+        .btn-outline:hover {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: var(--neon-violet);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-block {
+            width: 100%;
+            display: flex;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            border-color: var(--neon-purple);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.25), inset 0 0 12px rgba(139, 92, 246, 0.1);
+        }
+
+        .glass-card-gold {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border-gold);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .glass-card-gold:hover {
+            border-color: var(--neon-gold);
+            box-shadow: 0 8px 32px rgba(251, 191, 36, 0.2), inset 0 0 12px rgba(251, 191, 36, 0.05);
+        }
+
+        /* Navigation Header */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(6, 2, 15, 0.8);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: var(--transition);
+        }
+
+        .main-header.scrolled {
+            padding: 8px 0;
+            background: rgba(6, 2, 15, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #ffffff;
+            font-family: var(--font-display);
+        }
+
+        .logo-icon {
+            color: var(--neon-gold);
+            font-size: 1.6rem;
+            animation: spin-celestial 12s linear infinite;
+        }
+
+        @keyframes spin-celestial {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #ffffff 0%, var(--neon-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text-dim);
+            letter-spacing: 0.8px;
+            position: relative;
+            padding: 4px 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-purple);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Mobile Drawer Menu */
+        .mobile-drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(6, 2, 15, 0.98);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            transform: translateY(-100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(20px);
+        }
+
+        .mobile-drawer.open {
+            transform: translateY(0);
+        }
+
+        .close-drawer {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .mobile-drawer .nav-link {
+            font-size: 1.6rem;
+            font-family: var(--font-display);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            padding-top: 130px;
+            padding-bottom: 70px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--neon-gold);
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-subtitle::before {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 1px;
+            background-color: var(--neon-gold);
+        }
+
+        .hero-title {
+            margin-bottom: 20px;
+            line-height: 1.15;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            max-width: 600px;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Hero Quick Booking Form Card */
+        .quick-booking-card {
+            background: rgba(18, 10, 46, 0.85);
+            border: 1px solid var(--glass-border-gold);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(251,191,36,0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 35px;
+            max-width: 400px;
+            margin-left: auto;
+        }
+
+        .quick-booking-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-booking-card h3 i {
+            color: var(--neon-gold);
+        }
+
+        .quick-booking-card p {
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--neon-violet);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            background-color: rgba(6, 2, 15, 0.6);
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--neon-gold);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+            background-color: rgba(18, 10, 46, 0.9);
+        }
+
+        .form-group select option {
+            background-color: var(--space-bg);
+            color: #ffffff;
+        }
+
+        /* Floating astrological symbols in hero */
+        .astrology-float {
+            position: absolute;
+            font-size: 2.2rem;
+            color: var(--neon-gold);
+            opacity: 0.15;
+            pointer-events: none;
+            animation: float-slow 8s ease-in-out infinite alternate;
+        }
+        .symbol-1 { top: 18%; right: 10%; animation-delay: 0s; }
+        .symbol-2 { bottom: 20%; right: 45%; animation-delay: -2s; font-size: 1.6rem; }
+        .symbol-3 { top: 35%; left: 8%; animation-delay: -4s; font-size: 1.8rem; }
+        .symbol-4 { bottom: 25%; right: 8%; animation-delay: -6s; }
+
+        @keyframes float-slow {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-20px) rotate(15deg); }
+        }
+
+        /* UNIQUE HIGHLIGHT FEATURE: Interactive 3D Tarot Daily Pull Card Section */
+        .tarot-pull-section {
+            padding: 80px 0;
+            background: radial-gradient(circle at center, rgba(18, 10, 46, 0.6) 0%, transparent 80%);
+        }
+
+        .deck-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 40px;
+            perspective: 1200px;
+            flex-wrap: wrap;
+        }
+
+        .tarot-card-3d {
+            width: 160px;
+            height: 270px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .tarot-card-3d:hover:not(.revealed) {
+            transform: translateY(-15px) rotateY(10deg);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .tarot-card-3d.flipped {
+            transform: rotateY(180deg) scale(1.1);
+            z-index: 10;
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--neon-gold);
+            padding: 15px;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #120a2e 0%, #06020f 100%);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-back-ornament {
+            width: 100%;
+            height: 100%;
+            border: 1px dashed rgba(251, 191, 36, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--neon-gold);
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #1e1b4b 0%, #120a2e 100%);
+            transform: rotateY(180deg);
+            justify-content: flex-start;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
+        }
+
+        .card-front h4 {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            color: var(--neon-gold);
+        }
+
+        .card-front-icon {
+            font-size: 3rem;
+            color: var(--text-light);
+            margin: 25px 0 15px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.4);
+        }
+
+        .card-front-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        .pull-instructions {
+            margin-top: 35px;
+            font-size: 1rem;
+            color: var(--text-purple);
+            font-weight: 500;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image-wrapper img {
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .about-glow {
+            position: absolute;
+            inset: -2px;
+            border-radius: 26px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-teal), transparent);
+            z-index: -1;
+            opacity: 0.55;
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: 30px;
+            right: -20px;
+            background: rgba(18, 10, 46, 0.85);
+            border: 1px solid var(--glass-border-gold);
+            border-radius: 16px;
+            padding: 20px 25px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .about-badge .number {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            color: var(--neon-gold);
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+
+        .about-badge .label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+        }
+
+        .credentials-list {
+            margin: 30px 0;
+        }
+
+        .credential-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .credential-item i {
+            color: var(--neon-gold);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .ethics-subgrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .ethic-card {
+            background: rgba(18, 10, 46, 0.4);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            transition: var(--transition);
+        }
+
+        .ethic-card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            background: rgba(18, 10, 46, 0.7);
+        }
+
+        .ethic-card i {
+            color: var(--neon-purple);
+            font-size: 1.25rem;
+            margin-top: 2px;
+        }
+
+        .ethic-card h4 {
+            font-size: 0.95rem;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .ethic-card p {
+            font-size: 0.8rem;
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        /* Press Grid Section */
+        .press-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .press-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 25px;
+            background: rgba(18, 10, 46, 0.3);
+            border: 1px dashed rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .press-card i {
+            font-size: 2.2rem;
+            color: var(--neon-gold);
+        }
+
+        .press-card span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-dim);
+        }
+
+        /* Testimonials Carousel Section */
+        .testimonials-section {
+            background: linear-gradient(180deg, var(--space-bg) 0%, #0c0520 50%, var(--space-bg) 100%);
+        }
+
+        .carousel-outer {
+            max-width: 800px;
+            margin: 40px auto 0;
+            overflow: hidden;
+            position: relative;
+            border-radius: 24px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+        }
+
+        .testimonial-slide {
+            min-width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .stars-glow {
+            color: var(--neon-gold);
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+
+        .quote-text {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            line-height: 1.75;
+            color: #ffffff;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .client-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .client-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--neon-gold);
+            margin-bottom: 2px;
+        }
+
+        .client-meta {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .carousel-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .carousel-nav-btn {
+            background: transparent;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: var(--neon-violet);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .carousel-nav-btn:hover {
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.3);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-dot.active {
+            background: var(--neon-gold);
+            transform: scale(1.3);
+        }
+
+        /* Current Promotions Section */
+        .promo-grid {
+            margin-top: 40px;
+        }
+
+        .promo-card-wrapper {
+            position: relative;
+        }
+
+        .promo-tag-badge {
+            position: absolute;
+            top: -12px;
+            left: 30px;
+            background: var(--gold-gradient);
+            color: #06020f;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+
+        .promo-card {
+            padding: 40px 30px 35px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .promo-card.highlight {
+            border-color: var(--neon-gold);
+            box-shadow: 0 12px 40px rgba(251, 191, 36, 0.15);
+            background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.05) 0%, var(--space-card) 100%);
+        }
+
+        .promo-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 15px;
+        }
+
+        .promo-card p {
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        /* Services Tabs and Grid */
+        .services-tabs-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 40px 0 50px;
+            flex-wrap: wrap;
+        }
+
+        .service-tab-btn {
+            background: rgba(18, 10, 46, 0.5);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: var(--text-dim);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .service-tab-btn:hover, .service-tab-btn.active {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(251, 191, 36, 0.1) 100%);
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .tab-panel-container {
+            display: none;
+            animation: panelFadeIn 0.5s ease;
+        }
+
+        .tab-panel-container.active {
+            display: block;
+        }
+
+        @keyframes panelFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .service-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card-top i {
+            font-size: 2.2rem;
+            color: var(--neon-gold);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .service-duration {
+            font-size: 0.75rem;
+            color: var(--neon-teal);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            margin-bottom: 22px;
+            flex-grow: 1;
+        }
+
+        .service-price-placeholder {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--neon-gold);
+            border-top: 1px solid rgba(139, 92, 246, 0.15);
+            padding-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Booking Section Wizard styling */
+        .booking-wizard-card {
+            max-width: 960px;
+            margin: 40px auto 0;
+            padding: 45px;
+        }
+
+        .wizard-steps-header {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 45px;
+            position: relative;
+        }
+
+        .wizard-steps-header::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 15%;
+            width: 70%;
+            height: 1px;
+            background: rgba(139, 92, 246, 0.2);
+            z-index: 0;
+        }
+
+        .wizard-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            z-index: 1;
+            width: 33.33%;
+        }
+
+        .wizard-step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            background: var(--space-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            transition: var(--transition);
+        }
+
+        .wizard-step-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
+        .wizard-step.active .wizard-step-circle {
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+        }
+
+        .wizard-step.completed .wizard-step-circle {
+            background: var(--neon-gold);
+            border-color: var(--neon-gold);
+            color: #06020f;
+            font-weight: 700;
+        }
+
+        .wizard-panel {
+            display: none;
+        }
+
+        .wizard-panel.active {
+            display: block;
+            animation: panelFadeIn 0.4s ease;
+        }
+
+        /* Interactive Calendar styles */
+        .calendar-section-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 30px;
+        }
+
+        .calendar-container {
+            background: rgba(18, 10, 46, 0.4);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .calendar-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav-header h4 {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--neon-gold);
+        }
+
+        .calendar-nav-arrow {
+            background: transparent;
+            border: none;
+            color: var(--neon-violet);
+            cursor: pointer;
+            font-size: 0.9rem;
+            padding: 6px;
+            transition: var(--transition);
+        }
+
+        .calendar-nav-arrow:hover {
+            color: var(--neon-gold);
+        }
+
+        .calendar-weekdays-row {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+
+        .calendar-days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .calendar-day-btn {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-dim);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid transparent;
+        }
+
+        .calendar-day-btn:hover:not(.disabled) {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: rgba(139, 92, 246, 0.3);
+            color: #ffffff;
+        }
+
+        .calendar-day-btn.selected-day {
+            background: var(--gold-gradient) !important;
+            color: #06020f !important;
+            font-weight: 700;
+            border-color: transparent !important;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+        }
+
+        .calendar-day-btn.current-today {
+            border-color: rgba(139, 92, 246, 0.4);
+            color: var(--neon-purple);
+        }
+
+        .calendar-day-btn.disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        /* Time slots grid */
+        .time-slots-box h4 {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--neon-gold);
+            margin-bottom: 5px;
+        }
+
+        .timezone-caption {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        .time-slots-selection-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .time-slot-option {
+            padding: 11px;
+            border-radius: 8px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            background: rgba(18, 10, 46, 0.4);
+            color: var(--text-dim);
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .time-slot-option:hover {
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+        }
+
+        .time-slot-option.selected-time {
+            background: rgba(251, 191, 36, 0.15) !important;
+            border-color: var(--neon-gold) !important;
+            color: var(--neon-gold) !important;
+            font-weight: 600;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+        }
+
+        .datetime-display-well {
+            margin-top: 25px;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px dashed rgba(251, 191, 36, 0.3);
+            background: rgba(251, 191, 36, 0.04);
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            text-align: center;
+        }
+
+        .wizard-footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(139, 92, 246, 0.15);
+        }
+
+        /* Intake form fields layout */
+        .form-grid-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Payment panel selector cards */
+        .payment-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .payment-option-card {
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(18, 10, 46, 0.3);
+            position: relative;
+        }
+
+        .payment-option-card input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .payment-option-card:hover, .payment-option-card.selected-pm {
+            border-color: var(--neon-gold);
+            background: rgba(251, 191, 36, 0.08);
+        }
+
+        .payment-option-card i {
+            font-size: 1.8rem;
+            color: var(--neon-purple);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .payment-option-card span {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
+        .payment-option-card.selected-pm i {
+            color: var(--neon-gold);
+        }
+
+        .payment-option-card.selected-pm span {
+            color: var(--neon-gold);
+        }
+
+        .payment-details-panel {
+            padding: 25px;
+            border-radius: 12px;
+            background: rgba(18, 10, 46, 0.4);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+        }
+
+        /* Resources / Blog Section */
+        .featured-article-card {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            border-radius: 24px;
+            overflow: hidden;
+            margin: 40px 0;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .featured-article-image {
+            position: relative;
+            min-height: 350px;
+        }
+
+        .featured-article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-article-body {
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+
+        .featured-article-body h3 {
+            font-size: 1.65rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .featured-article-body p {
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .article-read-meta {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        .filters-navigation-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 50px 0 35px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .blog-search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .blog-search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+        }
+
+        .blog-search-box input {
+            width: 100%;
+            padding: 11px 15px 11px 40px;
+            background: rgba(18, 10, 46, 0.4);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 30px;
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .blog-search-box input:focus {
+            border-color: var(--neon-gold);
+        }
+
+        .category-filter-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .category-pill-btn {
+            background: transparent;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            color: var(--text-dim);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-pill-btn:hover, .category-pill-btn.active {
+            background: rgba(139, 92, 246, 0.15);
+            border-color: var(--neon-purple);
+            color: var(--neon-violet);
+        }
+
+        .article-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .article-summary-card {
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .article-card-cover-art {
+            height: 170px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.35) 0%, rgba(251, 191, 36, 0.08) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card-cover-art::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(6,2,15,0.4) 100%);
+        }
+
+        .article-card-details {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .article-card-details h4 {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .article-card-details p {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .read-article-link-btn {
+            background: transparent;
+            border: none;
+            color: var(--neon-gold);
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .read-article-link-btn:hover {
+            color: var(--neon-purple);
+        }
+
+        .read-article-link-btn i {
+            transition: var(--transition);
+        }
+
+        .read-article-link-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        /* FAQ Accordion Section */
+        .faq-accordion-container {
+            max-width: 800px;
+            margin: 40px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .faq-accordion-item {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            transition: var(--transition);
+        }
+
+        .faq-accordion-item.expanded {
+            border-color: rgba(251, 191, 36, 0.35);
+        }
+
+        .faq-header-trigger {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 28px;
+            background: rgba(18, 10, 46, 0.4);
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .faq-header-trigger i {
+            color: var(--neon-gold);
+            font-size: 0.85rem;
+            transition: transform 0.35s ease;
+        }
+
+        .faq-accordion-item.expanded .faq-header-trigger i {
+            transform: rotate(180deg);
+        }
+
+        .faq-body-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(18, 10, 46, 0.15);
+        }
+
+        .faq-body-panel p {
+            padding: 0 28px 24px;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Policies Grid Section */
+        .policies-grid {
+            margin-top: 50px;
+        }
+
+        .policy-item-card {
+            padding: 30px;
+            text-align: left;
+        }
+
+        .policy-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-gold);
+            margin-bottom: 20px;
+            font-size: 1.15rem;
+        }
+
+        .policy-item-card h4 {
+            font-size: 1.05rem;
+            margin-bottom: 12px;
+        }
+
+        .policy-item-card p {
+            font-size: 0.82rem;
+            line-height: 1.65;
+            margin-bottom: 0;
+        }
+
+        /* Contact Section */
+        .contact-grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .contact-details-box {
+            padding: 45px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(18, 10, 46, 0.8) 0%, rgba(6, 2, 15, 0.9) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .contact-details-box h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-intro-desc {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 35px;
+        }
+
+        .contact-channels-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-channel-row {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .contact-channel-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-gold);
+            flex-shrink: 0;
+        }
+
+        .contact-channel-row h4 {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-dim);
+            margin-bottom: 4px;
+        }
+
+        .contact-channel-row p, .contact-channel-row a {
+            color: #ffffff;
+            font-size: 0.92rem;
+        }
+
+        .contact-channel-row a:hover {
+            color: var(--neon-gold);
+        }
+
+        .contact-social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 35px;
+        }
+
+        .contact-social-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-violet);
+            transition: var(--transition);
+        }
+
+        .contact-social-btn:hover {
+            background: rgba(251, 191, 36, 0.12);
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+        }
+
+        .contact-map-placeholder {
+            margin-top: 40px;
+            border: 1px dashed rgba(139, 92, 246, 0.25);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        .contact-map-placeholder i {
+            color: var(--neon-gold);
+        }
+
+        .contact-form-box {
+            padding: 45px;
+        }
+
+        .contact-form-box h3 {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: linear-gradient(180deg, transparent 0%, #04010a 100%);
+            border-top: 1px solid rgba(139, 92, 246, 0.15);
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid-inner {
+            display: grid;
+            grid-template-columns: 1.5fr 0.8fr 0.8fr 1.3fr;
+            gap: 40px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.08);
+            text-align: left;
+        }
+
+        .footer-brand-column .logo {
+            margin-bottom: 18px;
+            display: inline-flex;
+        }
+
+        .footer-brand-column p {
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .footer-social-icon:hover {
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+        }
+
+        .footer-links-column h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--neon-gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-links-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links-column a {
+            color: var(--text-dim);
+            font-size: 0.88rem;
+        }
+
+        .footer-links-column a:hover {
+            color: var(--neon-gold);
+            padding-left: 5px;
+        }
+
+        .footer-newsletter-column h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--neon-gold);
+            margin-bottom: 8px;
+        }
+
+        .footer-newsletter-column p {
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-submission-form {
+            display: flex;
+            position: relative;
+        }
+
+        .newsletter-submission-form input {
+            flex: 1;
+            padding: 12px 50px 12px 16px;
+            background: rgba(18, 10, 46, 0.4);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            outline: none;
+        }
+
+        .newsletter-submission-form input:focus {
+            border-color: var(--neon-gold);
+        }
+
+        .newsletter-submission-form button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 48px;
+            background: var(--gold-gradient);
+            border: none;
+            border-radius: 0 8px 8px 0;
+            color: #06020f;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .newsletter-submission-form button:hover {
+            background: #d97706;
+        }
+
+        .footer-copyright-bar {
+            text-align: center;
+            padding-top: 30px;
+            font-size: 0.82rem;
+            color: rgba(139, 92, 246, 0.4);
+        }
+
+        /* Overlay Modals */
+        .modal-overlay-wrapper {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 2, 15, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .modal-overlay-wrapper.open-modal {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content-card {
+            background: linear-gradient(135deg, #120a2e 0%, #06020f 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 24px;
+            padding: 50px;
+            width: 100%;
+            max-width: 560px;
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: var(--transition);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8), 0 0 30px rgba(139, 92, 246, 0.2);
+            text-align: center;
+        }
+
+        .modal-overlay-wrapper.open-modal .modal-content-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close-trigger {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            color: var(--text-dim);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close-trigger:hover {
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+        }
+
+        .modal-success-check {
+            font-size: 4rem;
+            color: #10b981;
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .modal-content-card h2 {
+            font-size: 1.65rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-caption-text {
+            color: var(--text-purple);
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .modal-receipt-summary {
+            background: rgba(18, 10, 46, 0.6);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .modal-receipt-summary h4 {
+            color: var(--neon-gold);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .modal-receipt-summary p {
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+
+        .modal-receipt-summary p:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-email-notice {
+            font-size: 0.82rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        /* Large article preview modal card */
+        .article-preview-modal-card {
+            max-width: 680px;
+            max-height: 85vh;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .modal-article-category-tag {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--neon-gold);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .modal-article-body-content {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin: 20px 0 30px;
+        }
+
+        /* Scroll Animation Transitions */
+        /* Overridden with 3D Tilt Effect below */
+
+        /* Universal Responsive Styles */
+
+        /* 1. Large Screen & TV Optimizations */
+        @media (min-width: 1600px) {
+            .container {
+                max-width: 1400px;
+            }
+            html {
+                font-size: 17px;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1600px;
+            }
+            html {
+                font-size: 18px;
+            }
+        }
+
+        @media (min-width: 2560px) {
+            .container {
+                max-width: 2000px;
+            }
+            html {
+                font-size: 21px;
+            }
+        }
+
+        /* 2. Grid Utilities Auto-Scaling Breakpoints */
+        @media (max-width: 1200px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-4, .grid-3, .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .form-grid-fields .form-group {
+                grid-column: span 1 !important;
+            }
+        }
+
+        /* 3. Component Breakpoint Adaptations */
+        @media(max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-booking-card {
+                margin: 0 auto;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .press-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .policies-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width: 768px) {
+            .section-padding {
+                padding: 70px 0;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .service-grid-tab-content, .article-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid-container {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-article-card {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-article-image {
+                min-height: 250px;
+            }
+
+            .calendar-section-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid-fields {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-navigation-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .blog-search-box {
+                width: 100%;
+            }
+            
+            /* Calendar mobile styling padding adjustments */
+            .calendar-container {
+                padding: 16px;
+            }
+            .calendar-days-grid {
+                gap: 4px;
+            }
+            .calendar-day-btn {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media(max-width: 480px) {
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .wizard-steps-header {
+                font-size: 0.7rem;
+            }
+
+            .footer-grid-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .policies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content-card {
+                padding: 30px 20px;
+                width: calc(100% - 32px) !important;
+            }
+
+            /* Date of Birth Selector grid wrapping */
+            .dob-select-grid {
+                grid-template-columns: 1fr !important;
+                gap: 8px !important;
+            }
+            .custom-select-trigger {
+                padding: 10px 12px;
+                font-size: 0.88rem;
+            }
+        }
+
+        /* 4. Compact viewports & Foldables */
+        @media(max-width: 380px) {
+            html {
+                font-size: 14px;
+            }
+            .hero-subtitle {
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+            }
+            .tarot-card-3d {
+                width: 130px;
+                height: 220px;
+            }
+            .card-front-icon {
+                font-size: 2.2rem;
+                margin: 15px 0 10px;
+            }
+            .card-front h4 {
+                font-size: 0.95rem;
+            }
+            .card-front-desc {
+                font-size: 0.72rem;
+            }
+        }
+
+        /* Webkit and iOS Styling Resets for Inputs */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        /* Custom Select Styles */
+        .custom-select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-select-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            background-color: rgba(6, 2, 15, 0.75);
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+            user-select: none;
+        }
+
+        .custom-select-trigger:hover,
+        .custom-select-wrapper.open .custom-select-trigger {
+            border-color: var(--neon-gold);
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .custom-select-trigger i {
+            color: var(--neon-violet);
+            font-size: 0.8rem;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .custom-select-wrapper.open .custom-select-trigger i {
+            transform: rotate(180deg);
+            color: var(--neon-gold);
+        }
+
+        .custom-select-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            margin-top: 6px;
+            background: rgba(18, 10, 46, 0.98);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow-y: auto;
+            max-height: 240px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-8px) scale(0.98);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        .custom-select-wrapper.open .custom-select-options {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .custom-select-option {
+            padding: 11px 16px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.05);
+        }
+
+        .custom-select-option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-select-option:hover {
+            background: rgba(139, 92, 246, 0.15);
+            color: #ffffff;
+        }
+
+        .custom-select-option.selected-option {
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--neon-gold);
+            font-weight: 600;
+        }
+
+        /* DOB fields grid spacing */
+        .dob-select-grid {
+            margin-top: 5px;
+        }
+
+        /* Article Images Styling */
+        .article-card-cover-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+            display: block;
+        }
+
+        .article-summary-card:hover .article-card-cover-art img {
+            transform: scale(1.08) rotate(1deg);
+        }
+
+        /* Enhanced Reveal Animations: 3D Tilt Effect */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(40px) rotateX(8deg);
+            transform-origin: bottom center;
+            filter: blur(4px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity, filter;
+        }
+
+        .reveal-element.element-visible {
+            opacity: 1;
+            transform: translateY(0) rotateX(0deg);
+            filter: blur(0);
+        }
+
+        /* Hero Parallax Scroll styling */
+        .hero-section {
+            background-attachment: fixed;
+            background-position: center center;
+        }
+
+        /* Floating symbols transition boost */
+        .astrology-float {
+            will-change: transform;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particle Constellation Background Canvas -->
+    <canvas id="constellation-canvas"></canvas>
+    
+    <!-- Background Blur Decorative Cosmic Orbs Container to prevent horizontal scroll bugs -->
+    <div class="cosmic-bg-wrapper" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow: hidden; pointer-events: none; z-index: -1;">
+        <div class="cosmic-orb orb-1"></div>
+        <div class="cosmic-orb orb-2"></div>
+        <div class="cosmic-orb orb-3"></div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <nav class="mobile-drawer" id="mobileDrawer">
+        <button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#booking" class="nav-link">Booking</a>
+        <a href="#resources" class="nav-link">Resources</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <a href="#booking" class="btn btn-gold" style="margin-top:15px">Book Now</a>
+    </nav>
+
+    <!-- Sticky Navigation Bar Header -->
+    <header class="main-header" id="mainHeader">
+        <div class="container header-inner">
+            <a href="#home" class="logo">
+                <i class="fa-solid fa-compass-drafting logo-icon"></i>
+                <span>SoulCompass Tarot</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#booking" class="nav-link">Booking</a>
+                <a href="#resources" class="nav-link">Resources</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#booking" class="btn btn-gold" style="padding: 10px 24px; font-size: 0.88rem;">Book Now</a>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section" style="background-image: linear-gradient(rgba(6, 2, 15, 0.82), rgba(6, 2, 15, 0.95)), url('images/hero_background.png');">
+        <!-- Floating Astrology Symbols for ambience -->
+        <i class="fa-solid fa-star-of-david astrology-float symbol-1"></i>
+        <i class="fa-solid fa-moon astrology-float symbol-2"></i>
+        <i class="fa-solid fa-sun astrology-float symbol-3"></i>
+        <i class="fa-solid fa-infinity astrology-float symbol-4"></i>
+        
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content reveal-element">
+                    <span class="hero-subtitle">Divine Astrological Readings</span>
+                    <h1 class="hero-title">Find Clarity, <span>Confidence</span> &amp; Direction Through Tarot</h1>
+                    <p class="hero-desc">Practical, ethical, and deeply intuitive readings designed to align you with your highest trajectory. The universe is communicating. Let us translate.</p>
+                    <div class="hero-buttons">
+                        <a href="#booking" class="btn btn-gold"><i class="fa-solid fa-calendar-check"></i> Book a Reading</a>
+                        <a href="#services" class="btn btn-outline"><i class="fa-solid fa-wand-magic-sparkles"></i> Explore Offerings</a>
+                    </div>
+                </div>
+                
+                <!-- Hero Quick Booking Widget Form Card -->
+                <div class="hero-right reveal-element">
+                    <div class="quick-booking-card">
+                        <h3><i class="fa-solid fa-star"></i> Quick Booking</h3>
+                        <p>Lock in your reading session instantly</p>
+                        <form id="heroQuickForm">
+                            <div class="form-group">
+                                <label><i class="fa-solid fa-circle-nodes"></i> Select Reading</label>
+                                <select id="quickSelectService" required>
+                                    <option value="" disabled selected>Select a reading...</option>
+                                    <option>Single Card Reading (10 min)</option>
+                                    <option>Three Card Reading (20 min)</option>
+                                    <option>Oracle Mini Reading (15 min)</option>
+                                    <option>Career Guidance Reading (45 min)</option>
+                                    <option>Love &amp; Relationship Reading (45 min)</option>
+                                    <option>Celtic Cross Reading (60 min)</option>
+                                    <option>Spiritual Growth Reading (60 min)</option>
+                                    <option>Annual Overview Reading (75 min)</option>
+                                    <option>Energy Check Reading</option>
+                                    <option>Chakra Reading</option>
+                                    <option>Email Reading</option>
+                                    <option>3 Session Coaching Package</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fa-regular fa-calendar-days"></i> Preferred Date</label>
+                                <input type="date" id="quickSelectDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fa-regular fa-clock"></i> Preferred Time (IST)</label>
+                                <select id="quickSelectTime" required>
+                                    <option value="" disabled selected>Select time...</option>
+                                    <option>10:00 AM</option>
+                                    <option>11:30 AM</option>
+                                    <option>01:00 PM</option>
+                                    <option>03:30 PM</option>
+                                    <option>05:00 PM</option>
+                                    <option>06:30 PM</option>
+                                    <option>08:00 PM</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-gold btn-block">Confirm Appointment <i class="fa-solid fa-arrow-right-long"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UNIQUE HIGHLIGHT FEATURE: Interactive 3D Tarot Daily Pull Card Section -->
+    <section class="tarot-pull-section">
+        <div class="container text-center">
+            <span class="section-tag">Daily Oracle Draw</span>
+            <h2 class="section-title">Reveal Your Daily Cosmic Insight</h2>
+            <p class="section-desc">Clear your mind, focus on your path, and click on one of the cards below to reveal your intuitive card of the day.</p>
+            
+            <div class="deck-container" id="deckContainer">
+                <!-- Card 1 -->
+                <div class="tarot-card-3d" data-card-id="0">
+                    <div class="card-face card-back">
+                        <div class="card-back-ornament"><i class="fa-solid fa-yin-yang"></i></div>
+                    </div>
+                    <div class="card-face card-front">
+                        <h4>The Sun</h4>
+                        <div class="card-front-icon"><i class="fa-solid fa-sun"></i></div>
+                        <p class="card-front-desc">Success, joy, and absolute abundance. Today shines a bright, warming light upon your pathways. Express gratitude and expand your creative self.</p>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="tarot-card-3d" data-card-id="1">
+                    <div class="card-face card-back">
+                        <div class="card-back-ornament"><i class="fa-solid fa-yin-yang"></i></div>
+                    </div>
+                    <div class="card-face card-front">
+                        <h4>The Star</h4>
+                        <div class="card-front-icon"><i class="fa-solid fa-star-and-crescent"></i></div>
+                        <p class="card-front-desc">Hope, spiritual peace, and gentle healing guidance. Clear insights will reach you today. Trust your deep subconscious and remain open to inspiration.</p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="tarot-card-3d" data-card-id="2">
+                    <div class="card-face card-back">
+                        <div class="card-back-ornament"><i class="fa-solid fa-yin-yang"></i></div>
+                    </div>
+                    <div class="card-face card-front">
+                        <h4>The Lovers</h4>
+                        <div class="card-front-icon"><i class="fa-solid fa-heart"></i></div>
+                        <p class="card-front-desc">Alignment, relationship harmony, and important choices. Today encourages you to align with your personal truths and make choices from the heart.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="pull-instructions" id="pullInstructions">Click on a card to reveal its divine meaning...</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image-wrapper reveal-element">
+                    <div class="about-glow"></div>
+                    <img src="images/reader_portrait.png" alt="Tarot Reader Vikas Pathak Portrait">
+                    <div class="about-badge">
+                        <span class="number">10+</span>
+                        <span class="label">Years of Study</span>
+                    </div>
+                </div>
+                
+                <div class="about-content-box reveal-element">
+                    <span class="section-tag">The Intuitive Guide</span>
+                    <h2 class="section-title">Grounded, Ethical &amp; Compassionate Readings</h2>
+                    <p>Welcome. I am Vikas Pathak, the spiritual practitioner behind SoulCompass Tarot. I view tarot as a sacred collaborative map rather than a tool for deterministic fortune-telling. My work focuses on empowerment, self-discovery, and aligning you with your highest potential.</p>
+                    <p>I combine classical tarot card archetypes, psychological insight, and practical counseling to clear away mental fog. Whether you are navigating career transitions, relationship shifts, or seeking spiritual growth, I provide a non-judgmental space.</p>
+                    
+                    <div class="credentials-list">
+                        <div class="credential-item"><i class="fa-solid fa-award"></i> Certified Master Tarot Practitioner (American Tarot Association)</div>
+                        <div class="credential-item"><i class="fa-solid fa-graduation-cap"></i> Diploma in Spiritual Counseling &amp; Life Coaching Integration</div>
+                        <div class="credential-item"><i class="fa-solid fa-certificate"></i> Certified Reiki &amp; Energy Alignment Healer</div>
+                    </div>
+
+                    <div class="ethics-subgrid">
+                        <div class="ethic-card"><i class="fa-solid fa-user-shield"></i><div><h4>Confidentiality</h4><p>Every session is held in absolute sacred privacy.</p></div></div>
+                        <div class="ethic-card"><i class="fa-solid fa-crown"></i><div><h4>Empowerment</h4><p>We clarify options so you leave feeling in control.</p></div></div>
+                        <div class="ethic-card"><i class="fa-solid fa-compass"></i><div><h4>Practicality</h4><p>You leave with actionable steps and goals.</p></div></div>
+                        <div class="ethic-card"><i class="fa-solid fa-circle-notch"></i><div><h4>Free Will</h4><p>You always maintain the final direction.</p></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Press & Affiliations Grid -->
+            <div class="press-grid">
+                <div class="press-card"><i class="fa-solid fa-star-of-david"></i><span>American Tarot Association Member</span></div>
+                <div class="press-card"><i class="fa-solid fa-gem"></i><span>Spiritual Wellness Alliance Certified</span></div>
+                <div class="press-card"><i class="fa-solid fa-circle-check"></i><span>Holistic Coaching Federation</span></div>
+                <div class="press-card"><i class="fa-solid fa-medal"></i><span>Mystical Arts Alliance Excellence Award</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Slider Section -->
+    <section class="testimonials-section section-padding">
+        <div class="container text-center">
+            <span class="section-tag">Reviews</span>
+            <h2 class="section-title">Seeker Experiences</h2>
+            <p class="section-desc">Read how these intuitive readings helped seekers find their inner alignment and compass.</p>
+            
+            <div class="carousel-outer">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Slide 1 -->
+                    <div class="testimonial-slide glass-card">
+                        <div class="stars-glow">★★★★★</div>
+                        <p class="quote-text">"Vikas provided an amazingly clear reading that shed light on a complex career choice. Professional, practical, and deeply empowering. I felt completely aligned with my decisions afterward."</p>
+                        <div class="client-profile">
+                            <span class="client-name">Sarah Jenkins</span>
+                            <span class="client-meta">Career Guidance Client · Mumbai</span>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="testimonial-slide glass-card">
+                        <div class="stars-glow">★★★★★</div>
+                        <p class="quote-text">"The Celtic Cross reading was incredibly deep and accurate. It highlighted obstacles I was ignoring and showed me how to navigate my life transition with grace. Truly transformative!"</p>
+                        <div class="client-profile">
+                            <span class="client-name">Michael Chen</span>
+                            <span class="client-meta">Celtic Cross Reading · Singapore</span>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="testimonial-slide glass-card">
+                        <div class="stars-glow">★★★★★</div>
+                        <p class="quote-text">"The energy check helped me understand why I felt blocked in my creative work. The guidance on clearing that energy worked wonderfully. I am now thriving in my art studio!"</p>
+                        <div class="client-profile">
+                            <span class="client-name">Elena Rostova</span>
+                            <span class="client-meta">Energy Check Client · Moscow</span>
+                        </div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="testimonial-slide glass-card">
+                        <div class="stars-glow">★★★★★</div>
+                        <p class="quote-text">"The annual overview was thorough and precise. I reference my session notes monthly and find so much value in the predictions and the gentle yet honest guidance I received."</p>
+                        <div class="client-profile">
+                            <span class="client-name">David Warner</span>
+                            <span class="client-meta">Annual Overview Client · London</span>
+                        </div>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="testimonial-slide glass-card">
+                        <div class="stars-glow">★★★★★</div>
+                        <p class="quote-text">"His ethical stance drew me in, and the reading proved he truly respects free will. He did not make me feel helpless, but powerful. I have returned three times and will keep coming back!"</p>
+                        <div class="client-profile">
+                            <span class="client-name">Priya Patel</span>
+                            <span class="client-meta">Relationship Guidance · Delhi</span>
+                        </div>
+                    </div>
+                    <!-- Slide 6 -->
+                    <div class="testimonial-slide glass-card">
+                        <div class="stars-glow">★★★★★</div>
+                        <p class="quote-text">"The email reading was beautifully formatted, detailed and arrived quickly. Having a PDF I can revisit whenever I need centering has been invaluable in my healing journey."</p>
+                        <div class="client-profile">
+                            <span class="client-name">Amara Williams</span>
+                            <span class="client-meta">Email Reading Client · Lagos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-nav">
+                <button class="carousel-nav-btn" id="carouselPrevBtn" aria-label="Previous slide"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="carousel-dots" id="carouselDots"></div>
+                <button class="carousel-nav-btn" id="carouselNextBtn" aria-label="Next slide"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Promotions Section -->
+    <section class="section-padding">
+        <div class="container text-center">
+            <span class="section-tag">Lunar Alignments</span>
+            <h2 class="section-title">Current Promotions</h2>
+            <p class="section-desc">Empower your spiritual practice with our seasonal packages and bundled coaching circles.</p>
+            
+            <div class="grid-3 promo-grid">
+                <!-- Promo 1 -->
+                <div class="promo-card-wrapper reveal-element">
+                    <span class="promo-tag-badge">New Moon Offer</span>
+                    <div class="glass-card promo-card">
+                        <h3>New Moon Alignment</h3>
+                        <p>Receive a specialized 3-card reading and customized energy clearing blueprint. Align your intentions before the next lunar transition cycle.</p>
+                        <a href="#booking" class="btn btn-outline promo-prefill-btn" data-service-prefill="Three Card Reading (20 min)">Reserve with 15% Off</a>
+                    </div>
+                </div>
+                <!-- Promo 2 -->
+                <div class="promo-card-wrapper reveal-element">
+                    <span class="promo-tag-badge" style="background: var(--purple-gradient); color: white;">Best Value</span>
+                    <div class="glass-card promo-card highlight">
+                        <h3>Alignment Coaching Bundle</h3>
+                        <p>A structured 3-session coaching package tailored to career adjustments, deep spiritual growth goals, and energetic checks.</p>
+                        <a href="#booking" class="btn btn-gold promo-prefill-btn" data-service-prefill="3 Session Coaching Package">Book Coaching Circle</a>
+                    </div>
+                </div>
+                <!-- Promo 3 -->
+                <div class="promo-card-wrapper reveal-element">
+                    <span class="promo-tag-badge">Gift Card</span>
+                    <div class="glass-card promo-card">
+                        <h3>Gift of Divine Light</h3>
+                        <p>Gift a customized 45-minute tarot reading to a friend. Comes with a high-quality digital card with beautiful mystical aesthetics.</p>
+                        <a href="#contact" class="btn btn-outline">Purchase Gift Card</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section-padding">
+        <div class="container text-center">
+            <span class="section-tag">Divination Menu</span>
+            <h2 class="section-title">Tarot &amp; Oracle Reading Services</h2>
+            <p class="section-desc">Choose from our tailored session depths to explore your current energies and options.</p>
+            
+            <div class="services-tabs-bar">
+                <button class="service-tab-btn active" data-tab-panel-id="quickReadingsPanel">Quick Readings</button>
+                <button class="service-tab-btn" data-tab-panel-id="deepReadingsPanel">Deep Readings</button>
+                <button class="service-tab-btn" data-tab-panel-id="specialtyServicesPanel">Specialty Offerings</button>
+            </div>
+
+            <!-- Tab Panel: Quick Readings -->
+            <div class="tab-panel-container active" id="quickReadingsPanel">
+                <div class="grid-3 service-grid-tab-content">
+                    <!-- Card 1 -->
+                    <div class="glass-card service-card reveal-element">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-square"></i>
+                            <h3>Single Card Reading</h3>
+                            <span class="service-duration"><i class="fa-regular fa-clock"></i> 10 min session</span>
+                            <p>Perfect for a quick energy calibration, clarifying simple choices, or receiving a single spiritual focal point for reflection.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Single Card Reading (10 min)">Schedule Reading</a>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="glass-card service-card reveal-element">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <h3>Three Card Reading</h3>
+                            <span class="service-duration"><i class="fa-regular fa-clock"></i> 20 min session</span>
+                            <p>The traditional Past, Present, Future spread. Excellent for checking background energies, current status, and potential outcomes.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Three Card Reading (20 min)">Schedule Reading</a>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="glass-card service-card reveal-element">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <h3>Oracle Mini Reading</h3>
+                            <span class="service-duration"><i class="fa-regular fa-clock"></i> 15 min session</span>
+                            <p>Focuses on high-level intuitive themes using Oracle cards. Ideal for spiritual inspiration, self-alignment, and finding peace.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Oracle Mini Reading (15 min)">Schedule Reading</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Panel: Deep Readings -->
+            <div class="tab-panel-container" id="deepReadingsPanel">
+                <div class="grid-3 service-grid-tab-content">
+                    <!-- Card 1 -->
+                    <div class="glass-card service-card">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <h3>Career Guidance Reading</h3>
+                            <span class="service-duration"><i class="fa-regular fa-clock"></i> 45 min session</span>
+                            <p>Understand workplace dynamics, potential growth paths, career adjustments, and blockages to your professional success.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Career Guidance Reading (45 min)">Schedule Reading</a>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="glass-card service-card">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-heart"></i>
+                            <h3>Love &amp; Relationship</h3>
+                            <span class="service-duration"><i class="fa-regular fa-clock"></i> 45 min session</span>
+                            <p>Examine relationship chemistry, communication patterns, core values, and understand shifts required for relationship alignment.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Love & Relationship Reading (45 min)">Schedule Reading</a>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="glass-card service-card">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-cross"></i>
+                            <h3>Celtic Cross Reading</h3>
+                            <span class="service-duration"><i class="fa-regular fa-clock"></i> 60 min session</span>
+                            <p>Our most thorough classical 10-card spread. Maps your central question comprehensively, exploring subconscious patterns.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Celtic Cross Reading (60 min)">Schedule Reading</a>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="glass-card service-card">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-tree"></i>
+                            <h3>Spiritual Growth</h3>
+                            <span class="service-duration"><i class="fa-regular fa-clock"></i> 60 min session</span>
+                            <p>Designed for self-reflection. Unpack karmic lessons, life purpose themes, soul alignment, and daily spiritual techniques.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Spiritual Growth Reading (60 min)">Schedule Reading</a>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="glass-card service-card">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-sun"></i>
+                            <h3>Annual Overview</h3>
+                            <span class="service-duration"><i class="fa-regular fa-clock"></i> 75 min session</span>
+                            <p>A comprehensive month-by-month prediction of cosmic energies, major themes, and growth shifts for your year ahead.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Annual Overview Reading (75 min)">Schedule Reading</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Panel: Specialty Services -->
+            <div class="tab-panel-container" id="specialtyServicesPanel">
+                <div class="grid-3 service-grid-tab-content">
+                    <!-- Card 1 -->
+                    <div class="glass-card service-card">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-battery-half"></i>
+                            <h3>Energy Check Reading</h3>
+                            <span class="service-duration"><i class="fa-solid fa-bolt"></i> Focused Alignment</span>
+                            <p>A quick calibration scan of your emotional/physical fields, highlighting where energetic blockages are currently active.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Energy Check Reading">Schedule Reading</a>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="glass-card service-card">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-dharmachakra"></i>
+                            <h3>Chakra Reading</h3>
+                            <span class="service-duration"><i class="fa-solid fa-circle-notch"></i> Complete Review</span>
+                            <p>Analyzes your seven key chakra points to evaluate alignment, offering steps for centering and energetic restoration.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Chakra Reading">Schedule Reading</a>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="glass-card service-card">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-envelope"></i>
+                            <h3>Email Reading</h3>
+                            <span class="service-duration"><i class="fa-solid fa-file-pdf"></i> PDF Inbox Delivery</span>
+                            <p>Submit your questions and receive a comprehensive multi-page PDF reading with layout photos and text analysis.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="Email Reading">Schedule Reading</a>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="glass-card service-card">
+                        <div class="service-card-top">
+                            <i class="fa-solid fa-users"></i>
+                            <h3>3 Session Coaching Package</h3>
+                            <span class="service-duration"><i class="fa-solid fa-circle-check"></i> 1 Month Program</span>
+                            <p>Three structured integration sessions for accountability, goal setting, and deeper alignment coaching.</p>
+                        </div>
+                        <div class="service-card-bottom">
+                            <div class="service-price-placeholder">Pricing details on booking screen</div>
+                            <a href="#booking" class="btn btn-purple btn-block select-service-book-btn" data-service-name="3 Session Coaching Package">Schedule Reading</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="section-padding">
+        <div class="container text-center">
+            <span class="section-tag">Scheduling</span>
+            <h2 class="section-title">Book Your Consultation</h2>
+            <p class="section-desc">Complete our interactive calendar scheduling, provide intake details, and confirm checkout to secure your slot.</p>
+            
+            <div class="glass-card booking-wizard-card">
+                <!-- Wizard Navigation Header -->
+                <div class="wizard-steps-header">
+                    <div class="wizard-step active" id="stepIndicator1">
+                        <div class="wizard-step-circle">1</div>
+                        <span class="wizard-step-label">Date &amp; Time</span>
+                    </div>
+                    <div class="wizard-step" id="stepIndicator2">
+                        <div class="wizard-step-circle">2</div>
+                        <span class="wizard-step-label">Intake Details</span>
+                    </div>
+                    <div class="wizard-step" id="stepIndicator3">
+                        <div class="wizard-step-circle">3</div>
+                        <span class="wizard-step-label">Checkout</span>
+                    </div>
+                </div>
+
+                <form id="mainBookingWizardForm">
+                    <!-- Step 1: Calendar Date & Time Slot Selector -->
+                    <div class="wizard-panel active" id="wizardPanel1">
+                        <div class="calendar-section-grid">
+                            <!-- Custom Calendar Grid -->
+                            <div class="calendar-container">
+                                <div class="calendar-nav-header">
+                                    <button type="button" class="calendar-nav-arrow" id="calendarPrevMonthBtn" aria-label="Previous Month"><i class="fa-solid fa-chevron-left"></i></button>
+                                    <h4 id="calendarMonthYearLabel">June 2026</h4>
+                                    <button type="button" class="calendar-nav-arrow" id="calendarNextMonthBtn" aria-label="Next Month"><i class="fa-solid fa-chevron-right"></i></button>
+                                </div>
+                                <div class="calendar-weekdays-row">
+                                    <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                                </div>
+                                <div class="calendar-days-grid" id="calendarDaysContainer">
+                                    <!-- Rendered dynamically by JS -->
+                                </div>
+                            </div>
+                            <!-- Time Slot Selection Grid -->
+                            <div class="time-slots-box">
+                                <h4>Available Hours (IST)</h4>
+                                <p class="timezone-caption"><i class="fa-solid fa-globe"></i> Defaults to Indian Standard Time (IST - GMT+5:30)</p>
+                                <div class="time-slots-selection-grid" id="timeSlotsSelectionGrid">
+                                    <button type="button" class="time-slot-option" data-time-slot="10:00 AM">10:00 AM</button>
+                                    <button type="button" class="time-slot-option" data-time-slot="11:30 AM">11:30 AM</button>
+                                    <button type="button" class="time-slot-option" data-time-slot="01:00 PM">01:00 PM</button>
+                                    <button type="button" class="time-slot-option" data-time-slot="03:30 PM">03:30 PM</button>
+                                    <button type="button" class="time-slot-option" data-time-slot="05:00 PM">05:00 PM</button>
+                                    <button type="button" class="time-slot-option" data-time-slot="06:30 PM">06:30 PM</button>
+                                    <button type="button" class="time-slot-option" data-time-slot="08:00 PM">08:00 PM</button>
+                                </div>
+                                <div class="datetime-display-well" id="dateTimeDisplayWell">
+                                    Please select your preferred date and time slot.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wizard-footer-nav">
+                            <span></span>
+                            <button type="button" class="btn btn-gold" id="nextToStep2Btn" disabled>Next: Intake Form <i class="fa-solid fa-arrow-right-long"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Intake Questionnaire Questionnaire Form -->
+                    <div class="wizard-panel" id="wizardPanel2">
+                        <div class="form-grid-fields">
+                            <div class="form-group">
+                                <label>Full Name <span style="color:#ef4444">*</span></label>
+                                <input type="text" id="intakeFullName" placeholder="Vikas Pathak" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address <span style="color:#ef4444">*</span></label>
+                                <input type="email" id="intakeEmailAddress" placeholder="vikas@example.com" required>
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label><i class="fa-solid fa-cake-candles"></i> Birth Date <span style="color:#ef4444">*</span></label>
+                                <div class="dob-select-grid">
+                                    <select id="dobDay" required>
+                                        <option value="" disabled selected>Day</option>
+                                    </select>
+                                    <select id="dobMonth" required>
+                                        <option value="" disabled selected>Month</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                    <select id="dobYear" required>
+                                        <option value="" disabled selected>Year</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" id="intakeBirthDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Preferred Reading Type <span style="color:#ef4444">*</span></label>
+                                <select id="intakeReadingType" required>
+                                    <option value="" disabled selected>Select reading...</option>
+                                    <option>Single Card Reading (10 min)</option>
+                                    <option>Three Card Reading (20 min)</option>
+                                    <option>Oracle Mini Reading (15 min)</option>
+                                    <option>Career Guidance Reading (45 min)</option>
+                                    <option>Love &amp; Relationship Reading (45 min)</option>
+                                    <option>Celtic Cross Reading (60 min)</option>
+                                    <option>Spiritual Growth Reading (60 min)</option>
+                                    <option>Annual Overview Reading (75 min)</option>
+                                    <option>Energy Check Reading</option>
+                                    <option>Chakra Reading</option>
+                                    <option>Email Reading</option>
+                                    <option>3 Session Coaching Package</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Delivery Format</label>
+                                <select id="intakeDeliveryFormat">
+                                    <option>Video Call (Zoom / Google Meet)</option>
+                                    <option>Phone Call</option>
+                                    <option>Live Chat</option>
+                                    <option>Email PDF Report</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Your Timezone</label>
+                                <select id="intakeTimezone">
+                                    <option>Indian Standard Time (IST - UTC+5:30)</option>
+                                    <option>Eastern Standard Time (EST - UTC-5)</option>
+                                    <option>Greenwich Mean Time (GMT - UTC+0)</option>
+                                    <option>Pacific Standard Time (PST - UTC-8)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Questions / Focus for the Reading <span style="color:#ef4444">*</span></label>
+                            <textarea id="intakeQuestions" rows="4" placeholder="Please share what areas you want to inspect or any specific queries..." required></textarea>
+                        </div>
+                        <div class="wizard-footer-nav">
+                            <button type="button" class="btn btn-outline" id="backToStep1Btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
+                            <button type="button" class="btn btn-gold" id="nextToStep3Btn">Next: Payment <i class="fa-solid fa-arrow-right-long"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Payment Checkout Options -->
+                    <div class="wizard-panel" id="wizardPanel3">
+                        <h4 style="color:#ffffff; font-family:var(--font-sans); margin-bottom:5px;">Select Payment Method</h4>
+                        <p style="color:var(--text-dim); font-size:0.85rem;">Secure online transactions processed instantly.</p>
+                        
+                        <div class="payment-options-grid">
+                            <label class="payment-option-card selected-pm">
+                                <input type="radio" name="paymentGatewayOption" value="credit-card" checked>
+                                <div class="payment-card-face-design">
+                                    <i class="fa-solid fa-credit-card"></i>
+                                    <span>Credit / Debit Card</span>
+                                </div>
+                            </label>
+                            <label class="payment-option-card">
+                                <input type="radio" name="paymentGatewayOption" value="upi">
+                                <div class="payment-card-face-design">
+                                    <i class="fa-solid fa-mobile-screen-button"></i>
+                                    <span>UPI Payment</span>
+                                </div>
+                            </label>
+                            <label class="payment-option-card">
+                                <input type="radio" name="paymentGatewayOption" value="paypal">
+                                <div class="payment-card-face-design">
+                                    <i class="fa-brands fa-paypal"></i>
+                                    <span>PayPal</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Credit Card Panel Details -->
+                        <div class="payment-details-panel" id="paymentDetailsCardPanel">
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" id="ccCardNumber" placeholder="4111 2222 3333 4444">
+                            </div>
+                            <div class="form-grid-fields">
+                                <div class="form-group">
+                                    <label>Expiry Date</label>
+                                    <input type="text" id="ccExpiryDate" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV</label>
+                                    <input type="password" id="ccCvvCode" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- UPI Panel Details -->
+                        <div class="payment-details-panel" id="paymentDetailsUpiPanel" style="display:none;">
+                            <div class="form-group">
+                                <label>UPI ID / VPA</label>
+                                <input type="text" id="upiVpaId" placeholder="name@upi">
+                            </div>
+                        </div>
+
+                        <!-- PayPal Panel Details -->
+                        <div class="payment-details-panel" id="paymentDetailsPaypalPanel" style="display:none;">
+                            <p style="color:var(--text-dim); font-size:0.9rem; margin:0;"><i class="fa-solid fa-circle-info" style="color:var(--neon-gold); margin-right:6px;"></i> You will be redirected to PayPal's secure layout to complete authorization.</p>
+                        </div>
+
+                        <div class="wizard-footer-nav">
+                            <button type="button" class="btn btn-outline" id="backToStep2Btn"><i class="fa-solid fa-arrow-left-long"></i> Back</button>
+                            <button type="submit" class="btn btn-gold" id="confirmPaymentBtn"><i class="fa-solid fa-lock"></i> Authorize &amp; Book Session</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="section-padding">
+        <div class="container text-center">
+            <span class="section-tag">Wisdom Portal</span>
+            <h2 class="section-title">Tarot Journal &amp; Wisdom Portal</h2>
+            <p class="section-desc">Explore articles, monthly spreads, and spiritual advice to ground your day.</p>
+            
+            <!-- Featured Article Layout -->
+            <div class="featured-article-card glass-card">
+                <div class="featured-article-image">
+                    <img src="images/crystals_candles.png" alt="Burning candles and healing crystals arrangement">
+                </div>
+                <div class="featured-article-body">
+                    <span class="section-tag" style="margin-bottom:10px; display:block;">Featured Guide</span>
+                    <h3>How to Prepare for Your First Tarot Session</h3>
+                    <p>Unlock deep, calming insights from your tarot consultation. This guide reviews setting intentions, establishing a receptive mindset, framing open-ended questions, and creating a calm, distraction-free environment.</p>
+                    <div class="article-read-meta"><i class="fa-regular fa-clock"></i> 5 min read &nbsp;|&nbsp; June 2026</div>
+                    <button class="btn btn-gold read-full-article-btn" data-article-title="How to Prepare for Your First Tarot Session" data-article-content="Preparing for your first tarot session is all about creating a receptive state of mind. Start by clarifying your intention: what questions are pressing on your heart? Formulate open-ended questions like 'What should I know about this situation?' rather than simple yes/no queries. Ensure you are in a quiet, distraction-free environment, and take a few centering deep breaths before connecting. Keeping a journal handy helps you capture insights that might make more sense in the days following the reading.">Read Guide</button>
+                </div>
+            </div>
+
+            <!-- Search and category bar -->
+            <div class="filters-navigation-bar">
+                <div class="blog-search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="blogSearchInput" placeholder="Search wisdom journal...">
+                </div>
+                <div class="category-filter-pills">
+                    <button class="category-pill-btn active" data-category-filter="all">All Topics</button>
+                    <button class="category-pill-btn" data-category-filter="meanings">Daily Meanings</button>
+                    <button class="category-pill-btn" data-category-filter="journal">Journaling</button>
+                    <button class="category-pill-btn" data-category-filter="growth">Spiritual Growth</button>
+                    <button class="category-pill-btn" data-category-filter="career">Career Decisions</button>
+                </div>
+            </div>
+
+            <!-- Article Cards Grid -->
+            <div class="article-cards-grid" id="articleCardsGrid">
+                <!-- Article 1 -->
+                <div class="glass-card article-summary-card" data-card-category="meanings">
+                    <div class="article-card-cover-art">
+                        <img src="images/article_fool.png" alt="Understanding The Fool tarot card illustration">
+                    </div>
+                    <div class="article-card-details">
+                        <span class="section-tag" style="margin-bottom:8px; display:block;">Daily Meanings</span>
+                        <h4>Understanding The Fool: Leap of Faith</h4>
+                        <p>Learn the guidance, spiritual archetypes, and challenges behind Key 0 of the Major Arcana.</p>
+                        <button class="read-article-link-btn" data-article-title="Understanding The Fool: Leap of Faith" data-article-content="The Fool represents the clean slate, initial steps of a quest, and embracing the unknown. As Key 0, it holds infinite potential. When The Fool arrives in your spread, it encourages you to take that leap of faith, letting go of worry or past baggage. It's a reminder to approach circumstances with a beginner's mind, open to discovery and trust in the universe.">Read More <i class="fa-solid fa-arrow-right-long"></i></button>
+                    </div>
+                </div>
+                <!-- Article 2 -->
+                <div class="glass-card article-summary-card" data-card-category="journal">
+                    <div class="article-card-cover-art">
+                        <img src="images/article_journal.png" alt="Morning Journaling Prompts for Alignment illustration">
+                    </div>
+                    <div class="article-card-details">
+                        <span class="section-tag" style="margin-bottom:8px; display:block;">Journaling</span>
+                        <h4>Morning Journaling Prompts for Alignment</h4>
+                        <p>Six powerful journal prompts to align with your card draws and track daily emotional patterns.</p>
+                        <button class="read-article-link-btn" data-article-title="Morning Journaling Prompts for Alignment" data-article-content="Journaling allows you to process tarot insights on a deeper subconscious level. Try these morning prompts: 1. 'What message is my intuition trying to tell me today?' 2. 'Where am I resisting flow?' 3. 'What boundary requires reinforcement?' Reflect on a single card draw alongside these questions to unlock deeper clarity and build alignment.">Read More <i class="fa-solid fa-arrow-right-long"></i></button>
+                    </div>
+                </div>
+                <!-- Article 3 -->
+                <div class="glass-card article-summary-card" data-card-category="growth">
+                    <div class="article-card-cover-art">
+                        <img src="images/article_oracle.png" alt="Oracle Decks vs. Traditional Tarot illustration">
+                    </div>
+                    <div class="article-card-details">
+                        <span class="section-tag" style="margin-bottom:8px; display:block;">Spiritual Growth</span>
+                        <h4>Oracle Decks vs. Traditional Tarot</h4>
+                        <p>Understand the core differences between the structured 78 tarot cards and oracle decks.</p>
+                        <button class="read-article-link-btn" data-article-title="Oracle Decks vs. Traditional Tarot" data-article-content="Tarot decks have a structured configuration of 78 cards consisting of the Major and Minor Arcana. They tell a story based on classic archetypes. Oracle cards, on the other hand, have no fixed structure. Each oracle deck has its own themes, number of cards, and intuitive interpretations. Oracle cards offer gentler, holistic advice, while tarot reveals underlying frameworks and pathways.">Read More <i class="fa-solid fa-arrow-right-long"></i></button>
+                    </div>
+                </div>
+                <!-- Article 4 -->
+                <div class="glass-card article-summary-card" data-card-category="growth">
+                    <div class="article-card-cover-art">
+                        <img src="images/article_grounding.png" alt="5 Daily Habits for Spiritual Grounding illustration">
+                    </div>
+                    <div class="article-card-details">
+                        <span class="section-tag" style="margin-bottom:8px; display:block;">Spiritual Growth</span>
+                        <h4>5 Daily Habits for Spiritual Grounding</h4>
+                        <p>Simple grounding techniques to stay centered, mindful, and energetically aligned daily.</p>
+                        <button class="read-article-link-btn" data-article-title="5 Daily Habits for Spiritual Grounding" data-article-content="Incorporate these five daily tips: 1. Start with 5 minutes of mindful breath before checking your phone. 2. Ground yourself by walking barefoot on the grass. 3. Practice gratitude out loud. 4. Draw a single tarot guidance card. 5. Clear your personal space regularly using incense or sound.">Read More <i class="fa-solid fa-arrow-right-long"></i></button>
+                    </div>
+                </div>
+                <!-- Article 5 -->
+                <div class="glass-card article-summary-card" data-card-category="career">
+                    <div class="article-card-cover-art">
+                        <img src="images/article_career.png" alt="How Tarot Clarifies Career Transitions illustration">
+                    </div>
+                    <div class="article-card-details">
+                        <span class="section-tag" style="margin-bottom:8px; display:block;">Career Decisions</span>
+                        <h4>How Tarot Clarifies Career Transitions</h4>
+                        <p>Discover spreads designed to inspect workplace dynamics and professional career growth.</p>
+                        <button class="read-article-link-btn" data-article-title="How Tarot Clarifies Career Transitions" data-article-content="Tarot acts as an excellent strategy tool for career paths. By exploring spreads focused on growth, you can inspect your true alignment with a current job, potential outcomes of an offer, and hidden workplace dynamics. It removes the emotional noise, helping you make logical, confident choices.">Read More <i class="fa-solid fa-arrow-right-long"></i></button>
+                    </div>
+                </div>
+                <!-- Article 6 -->
+                <div class="glass-card article-summary-card" data-card-category="meanings">
+                    <div class="article-card-cover-art">
+                        <img src="images/article_empress.png" alt="The Empress tarot card illustration">
+                    </div>
+                    <div class="article-card-details">
+                        <span class="section-tag" style="margin-bottom:8px; display:block;">Daily Meanings</span>
+                        <h4>The Empress: Abundance &amp; Creation</h4>
+                        <p>Explore the maternal nurturing, abundance, and creative energies of the Empress archetype.</p>
+                        <button class="read-article-link-btn" data-article-title="The Empress: Abundance &amp; Creation" data-article-content="The Empress signifies fertility, creative expansion, beauty, and abundant maternal care. When she arrives, she invites you to connect with nature, indulge in sensory experiences, and trust in the natural cycles of growth. She indicates that your current creative endeavors are highly supported.">Read More <i class="fa-solid fa-arrow-right-long"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section id="faq" class="section-padding">
+        <div class="container text-center">
+            <span class="section-tag">Queries</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-desc">Find quick answers to common queries regarding tarot dynamics and online slots.</p>
+            
+            <div class="faq-accordion-container">
+                <!-- FAQ Item 1 -->
+                <div class="faq-accordion-item glass-card">
+                    <button class="faq-header-trigger">
+                        <span>How does tarot work?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <p>Tarot acts as an intuitive mirror reflecting your current sub-conscious state, internal frameworks, and active decisions. The cards use archetypal symbols and patterns that trigger intuitive analysis, helping you look at your circumstances from a new, objective angle.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="faq-accordion-item glass-card">
+                    <button class="faq-header-trigger">
+                        <span>Are readings completely confidential?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <p>Yes, absolutely. Integrity is the foundation of SoulCompass Tarot. All details, questions, discussions, and results are strictly between you and your reader, adhering to the highest code of professional spiritual guidance.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="faq-accordion-item glass-card">
+                    <button class="faq-header-trigger">
+                        <span>What if I need to reschedule my session?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <p>You can reschedule your appointment up to 24 hours before your scheduled time. Simply click the link in your confirmation email or contact us directly. Cancellations made within 24 hours are subject to our standard policy.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 4 -->
+                <div class="faq-accordion-item glass-card">
+                    <button class="faq-header-trigger">
+                        <span>Can tarot predict the absolute future?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <p>Tarot shows the most likely trajectory based on your current energies, patterns, and decisions. It does not predict a fixed, unchangeable future. You always have full agency and free will to change your direction at any point.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 5 -->
+                <div class="faq-accordion-item glass-card">
+                    <button class="faq-header-trigger">
+                        <span>How do online readings work?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <p>Once you book a slot, you'll receive an automated confirmation email with a Zoom or Google Meet video link. At the scheduled time, we'll join the video call, discuss your questions, shuffle the cards together live, and complete the reading.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 6 -->
+                <div class="faq-accordion-item glass-card">
+                    <button class="faq-header-trigger">
+                        <span>What payment methods do you accept?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-body-panel">
+                        <p>We accept all major International Credit/Debit Cards, UPI payment systems (Google Pay, PhonePe, Paytm for Indian clients), and PayPal transfers for international transactions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policies Section -->
+    <section class="section-padding" style="padding-top: 0;">
+        <div class="container">
+            <div class="grid-4 policies-grid">
+                <!-- Policy Card 1 -->
+                <div class="glass-card policy-item-card reveal-element">
+                    <div class="policy-card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <h4>Disclaimer</h4>
+                    <p>Tarot readings are for guidance and entertainment purposes and are not a substitute for professional legal, medical, financial, or psychological advice.</p>
+                </div>
+                <!-- Policy Card 2 -->
+                <div class="glass-card policy-item-card reveal-element">
+                    <div class="policy-card-icon"><i class="fa-solid fa-receipt"></i></div>
+                    <h4>Refund Policy</h4>
+                    <p>Cancellations made 24 hours prior to the session receive a full refund. Missed appointments without notice are non-refundable.</p>
+                </div>
+                <!-- Policy Card 3 -->
+                <div class="glass-card policy-item-card reveal-element">
+                    <div class="policy-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h4>Privacy Policy</h4>
+                    <p>We do not store payment details. Contact details and intake questionnaire records are securely encrypted and never shared.</p>
+                </div>
+                <!-- Policy Card 4 -->
+                <div class="glass-card policy-item-card reveal-element">
+                    <div class="policy-card-icon"><i class="fa-solid fa-file-contract"></i></div>
+                    <h4>Terms of Use</h4>
+                    <p>By scheduling a session with SoulCompass Tarot, you agree that you are at least 18 years of age and accept personal responsibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <div class="container text-center">
+            <span class="section-tag">Reach Out</span>
+            <h2 class="section-title">Connect With Vikas Pathak</h2>
+            <p class="section-desc">Have questions prior to booking? Or seeking corporate events reading details? Drop a message!</p>
+            
+            <div class="contact-grid-container" style="margin-top: 50px;">
+                <!-- Info Panel -->
+                <div class="contact-details-box reveal-element">
+                    <h3>Contact Info</h3>
+                    <p class="contact-intro-desc">Feel free to connect via the form or through our official channels. We usually respond within 24 hours.</p>
+                    
+                    <div class="contact-channels-list">
+                        <div class="contact-channel-row">
+                            <div class="contact-channel-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div>
+                                <h4>Email</h4>
+                                <p><a href="mailto:info@soulcompasstarot.com">info@soulcompasstarot.com</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-channel-row">
+                            <div class="contact-channel-icon"><i class="fa-solid fa-phone"></i></div>
+                            <div>
+                                <h4>Phone</h4>
+                                <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-channel-row">
+                            <div class="contact-channel-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div>
+                                <h4>Main Office</h4>
+                                <p>Sector 15A, Noida, UP, India (IST Zone)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-social-icons">
+                        <a href="#" class="contact-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="contact-social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="contact-social-btn" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+                        <a href="#" class="contact-social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    </div>
+
+                    <!-- Map representation -->
+                    <div class="contact-map-placeholder">
+                        <i class="fa-solid fa-map-location-dot fa-2x"></i>
+                        <span>Noida, Uttar Pradesh, India (Virtual Sessions Globally)</span>
+                    </div>
+                </div>
+
+                <!-- Form Panel -->
+                <div class="glass-card contact-form-box reveal-element">
+                    <h3>Send Message</h3>
+                    <form id="contactFormSubmit">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" id="contactNameInput" placeholder="Vikas Pathak" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="contactEmailInput" placeholder="vikas@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" id="contactSubjectInput" placeholder="Question regarding Celtic Cross spread">
+                        </div>
+                        <div class="form-group">
+                            <label>Your Message</label>
+                            <textarea id="contactMessageInput" rows="5" placeholder="Write your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gold btn-block">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid-inner">
+                <div class="footer-brand-column">
+                    <a href="#home" class="logo">
+                        <i class="fa-solid fa-compass-drafting logo-icon" style="animation:none;"></i>
+                        <span>SoulCompass Tarot</span>
+                    </a>
+                    <p class="footer-brand-desc">Providing ethical, compassionate, and clear intuitive readings to align you with your highest trajectory. Discover clarity today.</p>
+                    <div class="footer-social-links">
+                        <a href="#" class="footer-social-icon" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="footer-social-icon" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="footer-social-icon" aria-label="Pinterest"><i class="fa-brands fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#booking">Booking</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-column">
+                    <h4>Readings</h4>
+                    <ul>
+                        <li><a href="#services">Single Card Reading</a></li>
+                        <li><a href="#services">Three Card Reading</a></li>
+                        <li><a href="#services">Career Guidance</a></li>
+                        <li><a href="#services">Love &amp; Relationship</a></li>
+                        <li><a href="#services">Celtic Cross Spread</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter-column">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to receive monthly tarot predictions, journal prompts, and exclusive offers.</p>
+                    <form id="newsletterSubscriptionForm" class="newsletter-submission-form">
+                        <input type="email" placeholder="Your Email Address" required aria-label="Newsletter email subscription">
+                        <button type="submit" aria-label="Submit newsletter form"><i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-copyright-bar">
+                <p>&copy; 2026 SoulCompass Tarot. All rights reserved. Designed for professional spiritual wellness guidance.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Confirmation Modal -->
+    <div class="modal-overlay-wrapper" id="bookingConfirmationModalOverlay">
+        <div class="modal-content-card">
+            <button class="modal-close-trigger close-booking-modal-btn" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-success-check"><i class="fa-solid fa-circle-check"></i></div>
+            <h2>Booking Request Received</h2>
+            <p class="modal-caption-text">Thank you! Your booking request has been received.</p>
+            <div class="modal-receipt-summary" id="modalReceiptSummaryDetails">
+                <!-- Details injected dynamically -->
+            </div>
+            <p class="modal-email-notice"><i class="fa-solid fa-envelope"></i> An automated confirmation email with meeting links (Zoom/Google Meet) has been sent to your email address.</p>
+            <button class="btn btn-purple close-booking-modal-btn">Close Window</button>
+        </div>
+    </div>
+
+    <!-- Article Reader Modal -->
+    <div class="modal-overlay-wrapper" id="articleReaderModalOverlay">
+        <div class="modal-content-card article-preview-modal-card">
+            <button class="modal-close-trigger" id="closeArticleReaderModalBtn" aria-label="Close article modal"><i class="fa-solid fa-xmark"></i></button>
+            <span class="modal-article-category-tag" id="modalArticleCategoryTag">Spiritual Practice</span>
+            <h2 id="modalArticleTitle" style="color: #ffffff; text-align: left;">Article Title</h2>
+            <div class="modal-article-body-content" id="modalArticleBodyContent">
+                <!-- Details injected dynamically -->
+            </div>
+            <button class="btn btn-purple" id="okCloseArticleReaderModalBtn">Close Article</button>
+        </div>
+    </div>
+
+    <!-- Scripting Module -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- ASTRO CONSTELLATION PARTICLES BACKGROUND SYSTEM ---
+            (function() {
+                const canvas = document.getElementById('constellation-canvas');
+                const ctx = canvas.getContext('2d');
+                let width = canvas.width = window.innerWidth;
+                let height = canvas.height = window.innerHeight;
+                let particles = [];
+                let mouse = { x: null, y: null, radius: 140 };
+
+                window.addEventListener('resize', () => {
+                    width = canvas.width = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
+                    initParticles();
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    mouse.x = e.x;
+                    mouse.y = e.y;
+                });
+
+                window.addEventListener('mouseleave', () => {
+                    mouse.x = null;
+                    mouse.y = null;
+                });
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                        this.vx = (Math.random() - 0.5) * 0.35;
+                        this.vy = (Math.random() - 0.5) * 0.35;
+                        this.radius = Math.random() * 1.5 + 0.4;
+                        this.alpha = Math.random() * 0.55 + 0.25;
+                        this.alphaSpeed = Math.random() * 0.004 + 0.002;
+                        this.direction = Math.random() < 0.5 ? 1 : -1;
+                    }
+
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+
+                        // Twinkling alpha update
+                        this.alpha += this.alphaSpeed * this.direction;
+                        if (this.alpha > 0.85 || this.alpha < 0.2) {
+                            this.direction *= -1;
+                        }
+
+                        // Bounds checking
+                        if (this.x < 0 || this.x > width) this.vx *= -1;
+                        if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                        // Soft mouse magnetism
+                        if (mouse.x !== null && mouse.y !== null) {
+                            let dx = mouse.x - this.x;
+                            let dy = mouse.y - this.y;
+                            let dist = Math.hypot(dx, dy);
+                            if (dist < mouse.radius) {
+                                let force = (mouse.radius - dist) / mouse.radius;
+                                this.x -= dx * force * 0.02;
+                                this.y -= dy * force * 0.02;
+                            }
+                        }
+                    }
+
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                        ctx.fill();
+                    }
+                }
+
+                function initParticles() {
+                    particles = [];
+                    // Highly optimized particle density to avoid layout/reflow rendering lag
+                    let density = Math.floor((width * height) / 16000);
+                    for (let i = 0; i < Math.min(density, 80); i++) {
+                        particles.push(new Particle());
+                    }
+                }
+
+                function animate() {
+                    ctx.clearRect(0, 0, width, height);
+                    
+                    // Optimized line drawing loops
+                    const len = particles.length;
+                    for (let i = 0; i < len; i++) {
+                        particles[i].update();
+                        particles[i].draw();
+
+                        for (let j = i + 1; j < len; j++) {
+                            let dx = particles[i].x - particles[j].x;
+                            if (Math.abs(dx) > 85) continue; // Early exit shortcut to avoid square root math
+                            let dy = particles[i].y - particles[j].y;
+                            if (Math.abs(dy) > 85) continue; // Early exit shortcut to avoid square root math
+
+                            let dist = Math.hypot(dx, dy);
+                            if (dist < 85) {
+                                let alpha = (85 - dist) / 85 * 0.12;
+                                ctx.beginPath();
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.strokeStyle = `rgba(167, 139, 250, ${alpha})`;
+                                ctx.lineWidth = 0.7;
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                    requestAnimationFrame(animate);
+                }
+
+                initParticles();
+                animate();
+            })();
+
+            // --- STICKY NAV SCROLL AND SCROLL HIGH-PERFORMANCE HIGHLIGHT LINK ---
+            const header = document.getElementById('mainHeader');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+            let sectionOffsets = [];
+
+            // Pre-calculate section offsets to avoid layout thrashing in scroll handler
+            function cacheOffsets() {
+                sectionOffsets = [];
+                sections.forEach(sec => {
+                    sectionOffsets.push({
+                        id: sec.getAttribute('id'),
+                        top: sec.offsetTop,
+                        bottom: sec.offsetTop + sec.offsetHeight
+                    });
+                });
+            }
+
+            window.addEventListener('load', cacheOffsets);
+            window.addEventListener('resize', cacheOffsets);
+            // Re-cache offsets when DOM changes or reveal animations take place
+            setTimeout(cacheOffsets, 1000);
+
+            let lastScrollY = window.scrollY;
+            let isTicking = false;
+
+            window.addEventListener('scroll', () => {
+                if (!isTicking) {
+                    window.requestAnimationFrame(() => {
+                        const currentScrollY = window.scrollY;
+                        
+                        // Header class toggling
+                        header.classList.toggle('scrolled', currentScrollY > 50);
+
+                        // High-performance scrollspy navigation highlighting
+                        const spyThreshold = currentScrollY + 160;
+                        let activeSecId = '';
+                        for (let i = 0; i < sectionOffsets.length; i++) {
+                            const item = sectionOffsets[i];
+                            if (spyThreshold >= item.top && spyThreshold < item.bottom) {
+                                activeSecId = item.id;
+                                break;
+                            }
+                        }
+
+                        if (activeSecId) {
+                            navLinks.forEach(link => {
+                                link.classList.toggle('active', link.getAttribute('href') === `#${activeSecId}`);
+                            });
+                        }
+
+                        lastScrollY = currentScrollY;
+                        isTicking = false;
+                    });
+                    isTicking = true;
+                }
+            }, { passive: true });
+
+            // --- MOBILE MENU DRAWER ---
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+            const mobileDrawer = document.getElementById('mobileDrawer');
+
+            hamburgerBtn.addEventListener('click', () => {
+                mobileDrawer.classList.add('open');
+            });
+
+            closeDrawerBtn.addEventListener('click', () => {
+                mobileDrawer.classList.remove('open');
+            });
+
+            // Close mobile menu drawer on click link
+            document.querySelectorAll('#mobileDrawer .nav-link, #mobileDrawer .btn').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileDrawer.classList.remove('open');
+                });
+            });
+
+            // --- UNIQUE LIVE FEATURE: Interactive 3D Tarot Daily Pull ---
+            const deckContainer = document.getElementById('deckContainer');
+            const pullInstructions = document.getElementById('pullInstructions');
+            let isCardDrawn = false;
+
+            if (deckContainer) {
+                const cards = deckContainer.querySelectorAll('.tarot-card-3d');
+                cards.forEach(card => {
+                    card.addEventListener('click', () => {
+                        if (isCardDrawn) return;
+                        
+                        isCardDrawn = true;
+                        
+                        // Perform a mini shuffle visual trick
+                        cards.forEach(c => {
+                            if (c !== card) {
+                                c.style.opacity = '0.3';
+                                c.style.transform = 'scale(0.85) translateY(10px)';
+                            }
+                        });
+
+                        // Spin & Flip the drawn card
+                        card.classList.add('flipped');
+                        pullInstructions.innerHTML = `<i class="fa-solid fa-sparkles" style="color:var(--neon-gold)"></i> Your daily guide is revealed! Refresh the page tomorrow for another pull.`;
+                    });
+                });
+            }
+
+            // --- SCROLL REVEAL ANIMATIONS ---
+            const animatedElements = document.querySelectorAll('.reveal-element');
+            const observer = new IntersectionObserver((entries, self) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('element-visible');
+                        self.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+            animatedElements.forEach(el => observer.observe(el));
+
+            // --- TESTIMONIALS SLIDER ---
+            const track = document.getElementById('carouselTrack');
+            const prevBtn = document.getElementById('carouselPrevBtn');
+            const nextBtn = document.getElementById('carouselNextBtn');
+            const dotsContainer = document.getElementById('carouselDots');
+            const slides = document.querySelectorAll('.testimonial-slide');
+
+            let currentSlideIndex = 0;
+            const totalSlides = slides.length;
+
+            if (track && totalSlides > 0) {
+                // Populate indicators
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = `carousel-dot${i === 0 ? ' active' : ''}`;
+                    dot.setAttribute('aria-label', `Navigate to review ${i + 1}`);
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                }
+
+                const dots = document.querySelectorAll('.carousel-dot');
+
+                function updateSlideTrack() {
+                    track.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentSlideIndex);
+                    });
+                }
+
+                function goToSlide(index) {
+                    currentSlideIndex = index;
+                    updateSlideTrack();
+                }
+
+                function nextSlide() {
+                    currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+                    updateSlideTrack();
+                }
+
+                function prevSlide() {
+                    currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+                    updateSlideTrack();
+                }
+
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+
+                // Auto rotate slides
+                let autoTimer = setInterval(nextSlide, 7000);
+
+                const resetTimer = () => {
+                    clearInterval(autoTimer);
+                    autoTimer = setInterval(nextSlide, 7000);
+                };
+
+                [prevBtn, nextBtn].forEach(b => b.addEventListener('click', resetTimer));
+                dots.forEach(d => d.addEventListener('click', resetTimer));
+            }
+
+            // --- SERVICES TAB SWITCHER PANEL ---
+            const serviceTabButtons = document.querySelectorAll('.service-tab-btn');
+            const serviceTabPanels = document.querySelectorAll('.tab-panel-container');
+
+            serviceTabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetPanelId = btn.getAttribute('data-tab-panel-id');
+
+                    serviceTabButtons.forEach(b => b.classList.remove('active'));
+                    serviceTabPanels.forEach(p => p.classList.remove('active'));
+
+                    btn.classList.add('active');
+                    document.getElementById(targetPanelId).classList.add('active');
+                });
+            });
+
+            // Pre-fill reading service category on Booking widget click
+            document.querySelectorAll('.select-service-book-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const serviceName = btn.getAttribute('data-service-name');
+                    const targetSelect = document.getElementById('intakeReadingType');
+                    if (targetSelect) {
+                        targetSelect.value = serviceName;
+                        targetSelect.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                });
+            });
+
+            // Pre-fill reading category on promo click
+            document.querySelectorAll('.promo-prefill-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const serviceName = btn.getAttribute('data-service-prefill');
+                    const targetSelect = document.getElementById('intakeReadingType');
+                    if (targetSelect) {
+                        targetSelect.value = serviceName;
+                        targetSelect.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                });
+            });
+
+            // --- CUSTOM BOOKING CALENDAR SYSTEM ---
+            const prevMonthBtn = document.getElementById('calendarPrevMonthBtn');
+            const nextMonthBtn = document.getElementById('calendarNextMonthBtn');
+            const monthYearLabel = document.getElementById('calendarMonthYearLabel');
+            const daysContainer = document.getElementById('calendarDaysContainer');
+            const slotsSelectionGrid = document.getElementById('timeSlotsSelectionGrid');
+            const dateTimeDisplayWell = document.getElementById('dateTimeDisplayWell');
+            const nextToStep2Btn = document.getElementById('nextToStep2Btn');
+
+            let calendarDateObj = new Date();
+            let selectedDateStr = null;
+            let selectedTimeStr = null;
+
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+
+            function generateCalendarGrid() {
+                if (!daysContainer) return;
+                
+                daysContainer.innerHTML = '';
+                const activeYear = calendarDateObj.getFullYear();
+                const activeMonth = calendarDateObj.getMonth();
+
+                monthYearLabel.textContent = `${monthNames[activeMonth]} ${activeYear}`;
+
+                const firstDayIndex = new Date(activeYear, activeMonth, 1).getDay();
+                const totalDaysInMonth = new Date(activeYear, activeMonth + 1, 0).getDate();
+                const totalDaysInPrevMonth = new Date(activeYear, activeMonth, 0).getDate();
+
+                // Prev month dates padding
+                for (let i = firstDayIndex; i > 0; i--) {
+                    const button = document.createElement('div');
+                    button.className = 'calendar-day-btn disabled';
+                    button.textContent = totalDaysInPrevMonth - i + 1;
+                    daysContainer.appendChild(button);
+                }
+
+                const today = new Date();
+                today.setHours(0,0,0,0);
+
+                // Active month dates
+                for (let i = 1; i <= totalDaysInMonth; i++) {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'calendar-day-btn';
+                    button.textContent = i;
+
+                    const dateToCheck = new Date(activeYear, activeMonth, i);
+                    
+                    if (dateToCheck < today) {
+                        button.className = 'calendar-day-btn disabled';
+                        button.disabled = true;
+                    } else {
+                        if (dateToCheck.getTime() === today.getTime()) {
+                            button.classList.add('current-today');
+                        }
+
+                        const targetDateString = `${activeYear}-${String(activeMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+                        if (selectedDateStr === targetDateString) {
+                            button.classList.add('selected-day');
+                        }
+
+                        button.addEventListener('click', () => {
+                            document.querySelectorAll('.calendar-day-btn').forEach(d => d.classList.remove('selected-day'));
+                            button.classList.add('selected-day');
+                            selectedDateStr = targetDateString;
+                            updateDatetimeConfirmation();
+                        });
+                    }
+                    daysContainer.appendChild(button);
+                }
+            }
+
+            if (prevMonthBtn && nextMonthBtn) {
+                prevMonthBtn.addEventListener('click', () => {
+                    calendarDateObj.setMonth(calendarDateObj.getMonth() - 1);
+                    generateCalendarGrid();
+                });
+
+                nextMonthBtn.addEventListener('click', () => {
+                    calendarDateObj.setMonth(calendarDateObj.getMonth() + 1);
+                    generateCalendarGrid();
+                });
+
+                generateCalendarGrid();
+            }
+
+            // Time Slots Click Selection listener
+            if (slotsSelectionGrid) {
+                const timeSlotOptions = slotsSelectionGrid.querySelectorAll('.time-slot-option');
+                timeSlotOptions.forEach(opt => {
+                    opt.addEventListener('click', () => {
+                        timeSlotOptions.forEach(o => o.classList.remove('selected-time'));
+                        opt.classList.add('selected-time');
+                        selectedTimeStr = opt.getAttribute('data-time-slot');
+                        updateDatetimeConfirmation();
+                    });
+                });
+            }
+
+            function updateDatetimeConfirmation() {
+                if (!dateTimeDisplayWell) return;
+
+                if (selectedDateStr && selectedTimeStr) {
+                    const selectedDateObject = new Date(selectedDateStr);
+                    const formattedDateString = selectedDateObject.toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    dateTimeDisplayWell.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--neon-gold)"></i> Selected: <strong>${formattedDateString} at ${selectedTimeStr} (IST)</strong>`;
+                    nextToStep2Btn.removeAttribute('disabled');
+                } else {
+                    dateTimeDisplayWell.textContent = 'Please select your preferred date and time slot.';
+                    nextToStep2Btn.setAttribute('disabled', 'true');
+                }
+            }
+
+            // --- BOOKING SCHEDULING WIZARD STEPS ---
+            const panel1 = document.getElementById('wizardPanel1');
+            const panel2 = document.getElementById('wizardPanel2');
+            const panel3 = document.getElementById('wizardPanel3');
+
+            const indicator1 = document.getElementById('stepIndicator1');
+            const indicator2 = document.getElementById('stepIndicator2');
+            const indicator3 = document.getElementById('stepIndicator3');
+
+            const nextStep2 = document.getElementById('nextToStep2Btn');
+            const nextStep3 = document.getElementById('nextToStep3Btn');
+            const backStep1 = document.getElementById('backToStep1Btn');
+            const backStep2 = document.getElementById('backToStep2Btn');
+
+            function changeStep(targetStepIndex) {
+                // Toggle active classes on steps
+                [panel1, panel2, panel3].forEach((panel, index) => {
+                    panel.classList.toggle('active', (index + 1) === targetStepIndex);
+                });
+
+                [indicator1, indicator2, indicator3].forEach((ind, index) => {
+                    const stepNum = index + 1;
+                    ind.classList.toggle('active', stepNum === targetStepIndex);
+                    ind.classList.toggle('completed', stepNum < targetStepIndex);
+                });
+                // Re-calculate page height offset shifts
+                setTimeout(cacheOffsets, 500);
+            }
+
+            nextStep2.addEventListener('click', () => changeStep(2));
+            backStep1.addEventListener('click', () => changeStep(1));
+
+            nextStep3.addEventListener('click', () => {
+                // Fields validation
+                const name = document.getElementById('intakeFullName').value.trim();
+                const email = document.getElementById('intakeEmailAddress').value.trim();
+                const dob = document.getElementById('intakeBirthDate').value;
+                const reading = document.getElementById('intakeReadingType').value;
+                const questions = document.getElementById('intakeQuestions').value.trim();
+
+                if (!name || !email || !dob || !reading || !questions) {
+                    alert('Please enter details in all required intake questions.');
+                    return;
+                }
+                changeStep(3);
+            });
+
+            backStep2.addEventListener('click', () => changeStep(2));
+
+            // --- POPULATE DATE OF BIRTH DROPDOWNS & HANDLE CHANGE ---
+            const dobDaySelect = document.getElementById('dobDay');
+            const dobYearSelect = document.getElementById('dobYear');
+            const intakeBirthDate = document.getElementById('intakeBirthDate');
+
+            if (dobDaySelect && dobYearSelect) {
+                // Populate Days (01 to 31)
+                for (let i = 1; i <= 31; i++) {
+                    const val = String(i).padStart(2, '0');
+                    const opt = document.createElement('option');
+                    opt.value = val;
+                    opt.textContent = i;
+                    dobDaySelect.appendChild(opt);
+                }
+
+                // Populate Years (Current Year down to 1920)
+                const currentYear = new Date().getFullYear();
+                for (let i = currentYear; i >= 1920; i--) {
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.textContent = i;
+                    dobYearSelect.appendChild(opt);
+                }
+
+                // Monitor changes to update hidden input
+                const updateDOBValue = () => {
+                    const d = dobDaySelect.value;
+                    const m = document.getElementById('dobMonth').value;
+                    const y = dobYearSelect.value;
+                    if (d && m && y) {
+                        intakeBirthDate.value = `${y}-${m}-${d}`;
+                    } else {
+                        intakeBirthDate.value = '';
+                    }
+                };
+
+                dobDaySelect.addEventListener('change', updateDOBValue);
+                document.getElementById('dobMonth').addEventListener('change', updateDOBValue);
+                dobYearSelect.addEventListener('change', updateDOBValue);
+            }
+
+            // --- CUSTOM CELESTIAL DROPDOWNS SYSTEM INITIALIZER ---
+            function initCustomSelects() {
+                const selects = document.querySelectorAll('select:not(.customized-select)');
+                
+                selects.forEach(select => {
+                    select.classList.add('customized-select');
+                    select.style.display = 'none';
+
+                    // Create wrapper
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'custom-select-wrapper';
+                    select.parentNode.insertBefore(wrapper, select);
+                    wrapper.appendChild(select);
+
+                    // Create trigger
+                    const trigger = document.createElement('div');
+                    trigger.className = 'custom-select-trigger';
+                    
+                    const selectedOption = select.options[select.selectedIndex];
+                    const triggerText = document.createElement('span');
+                    triggerText.textContent = (selectedOption && selectedOption.value) ? selectedOption.textContent : select.options[0].textContent;
+                    trigger.appendChild(triggerText);
+
+                    const icon = document.createElement('i');
+                    icon.className = 'fa-solid fa-chevron-down';
+                    trigger.appendChild(icon);
+                    wrapper.appendChild(trigger);
+
+                    // Create options container
+                    const optionsContainer = document.createElement('div');
+                    optionsContainer.className = 'custom-select-options';
+
+                    const rebuildOptions = () => {
+                        optionsContainer.innerHTML = '';
+                        Array.from(select.options).forEach((option, index) => {
+                            if (option.disabled && !option.value) return; 
+
+                            const optDiv = document.createElement('div');
+                            optDiv.className = 'custom-select-option';
+                            if (select.selectedIndex === index) optDiv.classList.add('selected-option');
+                            optDiv.textContent = option.textContent;
+                            
+                            optDiv.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                select.selectedIndex = index;
+                                triggerText.textContent = option.textContent;
+                                
+                                select.dispatchEvent(new Event('change', { bubbles: true }));
+                                
+                                optionsContainer.querySelectorAll('.custom-select-option').forEach(item => {
+                                    item.classList.remove('selected-option');
+                                });
+                                optDiv.classList.add('selected-option');
+                                wrapper.classList.remove('open');
+                            });
+                            
+                            optionsContainer.appendChild(optDiv);
+                        });
+                    };
+
+                    rebuildOptions();
+                    wrapper.appendChild(optionsContainer);
+
+                    trigger.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        document.querySelectorAll('.custom-select-wrapper').forEach(w => {
+                            if (w !== wrapper) w.classList.remove('open');
+                        });
+                        wrapper.classList.toggle('open');
+                    });
+
+                    // Sync triggers on value changes
+                    select.addEventListener('change', () => {
+                        const currOpt = select.options[select.selectedIndex];
+                        if (currOpt) {
+                            triggerText.textContent = currOpt.textContent;
+                            const optionDivs = optionsContainer.querySelectorAll('.custom-select-option');
+                            let offset = select.options[0].disabled && !select.options[0].value ? 1 : 0;
+                            optionDivs.forEach((div, idx) => {
+                                div.classList.toggle('selected-option', (idx + offset) === select.selectedIndex);
+                            });
+                        }
+                    });
+                });
+
+                document.addEventListener('click', () => {
+                    document.querySelectorAll('.custom-select-wrapper').forEach(w => {
+                        w.classList.remove('open');
+                    });
+                });
+            }
+
+            // Initialize custom selects on load
+            initCustomSelects();
+
+            // --- PAYMENT PANEL SWITCHER ---
+            const paymentOptions = document.querySelectorAll('input[name="paymentGatewayOption"]');
+            const ccDetailsPanel = document.getElementById('paymentDetailsCardPanel');
+            const upiDetailsPanel = document.getElementById('paymentDetailsUpiPanel');
+            const paypalDetailsPanel = document.getElementById('paymentDetailsPaypalPanel');
+
+            paymentOptions.forEach(opt => {
+                opt.addEventListener('change', () => {
+                    document.querySelectorAll('.payment-option-card').forEach(card => card.classList.remove('selected-pm'));
+                    opt.closest('.payment-option-card').classList.add('selected-pm');
+
+                    ccDetailsPanel.style.display = opt.value === 'credit-card' ? 'block' : 'none';
+                    upiDetailsPanel.style.display = opt.value === 'upi' ? 'block' : 'none';
+                    paypalDetailsPanel.style.display = opt.value === 'paypal' ? 'block' : 'none';
+                });
+            });
+
+            // --- SUBMIT BOOKING FORM FLOW ---
+            const mainBookingForm = document.getElementById('mainBookingWizardForm');
+            const confirmationModalOverlay = document.getElementById('bookingConfirmationModalOverlay');
+            const receiptSummaryContainer = document.getElementById('modalReceiptSummaryDetails');
+
+            if (mainBookingForm) {
+                mainBookingForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const chosenPm = document.querySelector('input[name="paymentGatewayOption"]:checked').value;
+                    if (chosenPm === 'credit-card') {
+                        const num = document.getElementById('ccCardNumber').value.trim();
+                        const expiry = document.getElementById('ccExpiryDate').value.trim();
+                        const cvv = document.getElementById('ccCvvCode').value.trim();
+                        if (!num || !expiry || !cvv) {
+                            alert('Please fill out your Credit Card details.');
+                            return;
+                        }
+                    } else if (chosenPm === 'upi') {
+                        const upiId = document.getElementById('upiVpaId').value.trim();
+                        if (!upiId) {
+                            alert('Please enter your UPI VPA handle.');
+                            return;
+                        }
+                    }
+
+                    // Build receipt content
+                    const name = document.getElementById('intakeFullName').value;
+                    const email = document.getElementById('intakeEmailAddress').value;
+                    const service = document.getElementById('intakeReadingType').value;
+                    const format = document.getElementById('intakeDeliveryFormat').value;
+
+                    const dateObject = new Date(selectedDateStr);
+                    const formattedDateString = dateObject.toLocaleDateString('en-US', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    receiptSummaryContainer.innerHTML = `
+                        <h4>Appointment summary</h4>
+                        <p><strong>Seeker:</strong> ${name}</p>
+                        <p><strong>Email Address:</strong> ${email}</p>
+                        <p><strong>Reading Type:</strong> ${service}</p>
+                        <p><strong>Schedule Date:</strong> ${formattedDateString} at ${selectedTimeStr} (IST)</p>
+                        <p><strong>Delivery Format:</strong> ${format}</p>
+                        <p><strong>Authorization Status:</strong> Complete &amp; Secured</p>
+                    `;
+
+                    // Open booking confirmation modal
+                    confirmationModalOverlay.classList.add('open-modal');
+                });
+            }
+
+            // Close Booking Confirmation modal
+            document.querySelectorAll('.close-booking-modal-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    confirmationModalOverlay.classList.remove('open-modal');
+                    mainBookingForm.reset();
+                    selectedDateStr = null;
+                    selectedTimeStr = null;
+                    document.querySelectorAll('.calendar-day-btn').forEach(d => d.classList.remove('selected-day'));
+                    document.querySelectorAll('.time-slot-option').forEach(o => o.classList.remove('selected-time'));
+                    updateDatetimeConfirmation();
+                    changeStep(1);
+                });
+            });
+
+            // --- HERO QUICK BOOKING FORM SUBMISSION FLOW ---
+            const heroQuickForm = document.getElementById('heroQuickForm');
+            if (heroQuickForm) {
+                heroQuickForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const service = document.getElementById('quickSelectService').value;
+                    const date = document.getElementById('quickSelectDate').value;
+                    const time = document.getElementById('quickSelectTime').value;
+
+                    // Fill wizard intake details
+                    document.getElementById('intakeReadingType').value = service;
+                    selectedDateStr = date;
+                    selectedTimeStr = time;
+
+                    // Update calendar selected display year/month
+                    const dateParts = date.split('-');
+                    calendarDateObj = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]));
+                    generateCalendarGrid();
+
+                    // Pre-select slot button
+                    const slotBtns = slotsSelectionGrid.querySelectorAll('.time-slot-option');
+                    slotBtns.forEach(btn => {
+                        if (btn.getAttribute('data-time-slot') === time) {
+                            btn.click();
+                        }
+                    });
+
+                    updateDatetimeConfirmation();
+
+                    // Scroll down to scheduling module
+                    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+
+                    // Switch to intake page
+                    setTimeout(() => {
+                        changeStep(2);
+                    }, 800);
+                });
+            }
+
+            // --- FAQ ACCORDION OPEN CLOSE TOGGLE ---
+            const faqHeaderTriggers = document.querySelectorAll('.faq-header-trigger');
+            faqHeaderTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const item = trigger.parentElement;
+                    const panel = trigger.nextElementSibling;
+                    const isExpanded = item.classList.contains('expanded');
+
+                    // Close all
+                    document.querySelectorAll('.faq-accordion-item').forEach(i => {
+                        i.classList.remove('expanded');
+                        i.querySelector('.faq-body-panel').style.maxHeight = '0';
+                    });
+
+                    if (!isExpanded) {
+                        item.classList.add('expanded');
+                        panel.style.maxHeight = panel.scrollHeight + 'px';
+                    }
+                });
+            });
+
+            // --- ARTICLES WISDOM FILTER & SEARCH ---
+            const searchInput = document.getElementById('blogSearchInput');
+            const categoryPills = document.querySelectorAll('.category-pill-btn');
+            const articleCards = document.querySelectorAll('.article-summary-card');
+
+            function performFilterQuery() {
+                const query = searchInput.value.toLowerCase().trim();
+                const activeCategory = document.querySelector('.category-pill-btn.active').getAttribute('data-category-filter');
+
+                articleCards.forEach(card => {
+                    const cat = card.getAttribute('data-card-category');
+                    const text = card.textContent.toLowerCase();
+
+                    const matchesQuery = text.includes(query);
+                    const matchesCategory = activeCategory === 'all' || cat === activeCategory;
+
+                    card.style.display = (matchesQuery && matchesCategory) ? 'flex' : 'none';
+                });
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', performFilterQuery);
+            }
+
+            categoryPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    categoryPills.forEach(p => p.classList.remove('active'));
+                    pill.classList.add('active');
+                    performFilterQuery();
+                });
+            });
+
+            // --- ARTICLE MODALS READER DISPLAY ---
+            const articleReaderModalOverlay = document.getElementById('articleReaderModalOverlay');
+            const modalArticleCategoryTag = document.getElementById('modalArticleCategoryTag');
+            const modalArticleTitle = document.getElementById('modalArticleTitle');
+            const modalArticleBodyContent = document.getElementById('modalArticleBodyContent');
+
+            document.querySelectorAll('.read-full-article-btn, .read-article-link-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const title = btn.getAttribute('data-article-title');
+                    const content = btn.getAttribute('data-article-content');
+                    const parentCard = btn.closest('.article-summary-card') || btn.closest('.featured-article-card');
+                    const category = parentCard ? parentCard.querySelector('.section-tag').textContent : 'Spiritual Wisdom';
+
+                    modalArticleTitle.textContent = title;
+                    modalArticleCategoryTag.textContent = category;
+                    modalArticleBodyContent.innerHTML = `<p>${content}</p><p style="margin-top: 15px;">Discover your personal alignments and pathways by booking an interactive live tarot card analysis session with Vikas Pathak using our calendar wizard scheduler above.</p>`;
+
+                    articleReaderModalOverlay.classList.add('open-modal');
+                });
+            });
+
+            // Close article modal triggers
+            document.querySelectorAll('#closeArticleReaderModalBtn, #okCloseArticleReaderModalBtn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    articleReaderModalOverlay.classList.remove('open-modal');
+                });
+            });
+
+            // --- CONTACT FORM SUBMISSION FLOW ---
+            const contactForm = document.getElementById('contactFormSubmit');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('contactNameInput').value;
+                    const email = document.getElementById('contactEmailInput').value;
+                    alert(`Thank you, ${name}! Your inquiry has been sent. We will get back to you at ${email} within 24 hours.`);
+                    contactForm.reset();
+                });
+            }
+
+            // --- NEWSLETTER FORM FLOW ---
+            const newsletterForm = document.getElementById('newsletterSubscriptionForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = newsletterForm.querySelector('input').value;
+                    alert(`Thank you! ${email} has been subscribed to the monthly SoulCompass Tarot newsletter circle.`);
+                    newsletterForm.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
